@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  h2 {
+    color: #6D7781;
+    font-family: "Sofia", cursive;
+    font-size: 15px;
+    font-weight: bold;
+    font-size: 3.6em;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  a {
+    color: #435160;
+    text-decoration: none;
+  }
+  input[type="text"], input[type="number"] {
+    width: 500px;
+    padding: 20px 0px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #435160;
+    outline: none;
+    color: #6D7781;
+    font-size: 16px;
+    font-weight: bold
+  }
+  
+  
+  .performa-btn{
+    background: #dd5;
+    width: 500px;
+    height: 40px;
+    border-radius: 5px;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    /* border-color: grey; */
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  .performa-btn:hover {
+    background: lightyellow;
+    /* border-color: grey;   */
+    border-radius: 5px;
+
+  }
+  
+
+  
+  
