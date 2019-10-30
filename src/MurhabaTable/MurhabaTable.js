@@ -3,9 +3,11 @@ import './MurhabaTable.css';
 import Header from '../Header/Header';
 import Button from '../Button/Button';
 import {Link} from 'react-router-dom'
+import Response from '../response.json'
 
 class MurhabaTable extends Component {
     render() {
+        console.log('RESPONSE', Response)
         return (
             <React.Fragment>
             <Button />
@@ -17,29 +19,26 @@ class MurhabaTable extends Component {
                     <table className="rwd-table">
                     <thead  >
                         <tr >
-                        <td>Item 1</td>
-                        <td>Item 2</td>
-                        <td>Item 3</td>
-                        <td>Item 4</td>
+                        <td>Asset</td>
+                        <td>Owner</td>
+                        <td>Client</td>
+                        <td>Reference</td>
                         </tr>
                     </thead>
                         <tbody>
+                        {Response && Response.map((item,i) => (
+                           
                             <tr>
-                                <td data-th="Movie Title">Star Wars</td>
-                                <td data-th="Genre">Adventure, Sci-fi</td>
-                                <td data-th="Genre">Adventure, Sci-fi</td>
-                                <td data-th="Genre">Adventure, Sci-fi</td>
+                            {console.log('MAP', item)}
+                                <td data-th="Movie Title">{item.state.data.asset} </td>
+                                <td data-th="Genre">{item.state.data.assetOwner}</td>
+                                <td data-th="Genre">{item.state.data.client}</td>
+                                <td data-th="Genre">{item.state.data.internalReference}</td>
                                 <td><button className='btn-murhaba' >View</button></td>
 
                             </tr>
-                            <tr>
-                                <td data-th="Movie Title">Howard The Duck</td>
-                                <td data-th="Genre">"Comedy"</td>
-                                <td data-th="Genre">"Comedy"</td>
-                                <td data-th="Genre">"Comedy"</td>
-                                <td><button className='btn-murhaba' >View</button></td>
-
-                            </tr>
+                        ))}
+                           
                         </tbody></table>
                 </div>
 
