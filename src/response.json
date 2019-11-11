@@ -36,7 +36,7 @@
                 "client": "O=Seller, L=Lahorek, C=PK",
                 "internalReference": "PR-4",
                 "asset": "Steel",
-                "takaful": false,
+                "takaful": true,
                 "owner": "O=Seller, L=Lahorek, C=PK",
                 "participants": [
                     "O=Seller, L=Lahorek, C=PK"

@@ -60,29 +60,33 @@ class MurhabaTable extends Component {
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-lg">
-                               Owned vault
+                                Owned vault
                         </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                        <div className="flexer">
-                        <table className="rwd-table">
-                            <thead  >
-                                <tr >
-                                    <td>Asset</td>
-                                    <td>Owner</td>
-                                    <td>Client</td>
-                                    <td>Reference</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    <tr>
-                                        <td>{currentObj.state.data.asset} </td>
-                                        <td>{currentObj.state.data.assetOwner}</td>
-                                        <td>{currentObj.state.data.client}</td>
-                                        <td>{currentObj.state.data.internalReference}</td>
-                                    </tr>
-                            </tbody></table>
-                    </div>
+                            <div className="flexer">
+                                <table className="rwd-table">
+                                    <thead  >
+                                        <tr >
+                                            <td>Asset</td>
+                                            <td>Owner</td>
+                                            <td>Client</td>
+                                            <td>Reference</td>
+                                            <td>Takaful</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{currentObj.state.data.asset} </td>
+                                            <td>{currentObj.state.data.assetOwner}</td>
+                                            <td>{currentObj.state.data.client}</td>
+                                            <td>{currentObj.state.data.internalReference}</td>
+                                            {currentObj.state.data.takaful ? <td>True</td> : <td>False</td>}
+
+
+                                        </tr>
+                                    </tbody></table>
+                            </div>
 
                         </Modal.Body>
                     </Modal>
