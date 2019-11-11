@@ -81,7 +81,7 @@ class MurhabaTable extends Component {
                                             <td>{currentObj.state.data.assetOwner}</td>
                                             <td>{currentObj.state.data.client}</td>
                                             <td>{currentObj.state.data.internalReference}</td>
-                                            {currentObj.state.data.takaful ? <td>True</td> : <td>False</td>}
+                                            {currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}
 
 
                                         </tr>
