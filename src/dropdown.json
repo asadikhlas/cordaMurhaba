@@ -1,0 +1,7 @@
+{
+    "peers": [
+        "O=Bank, L=Karachi, C=PK",
+        "O=Borrower, L=Karachi, C=PK",
+        "O=Takaful, L=Karachi, C=PK"
+    ]
+}

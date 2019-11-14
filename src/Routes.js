@@ -16,8 +16,7 @@ class Routes extends Component {
             <Header />
       <div>
         <Switch>
-          <Route exact path="/" component={MurhabaTable} />
-            
+          <Route exact path="/" component={MurhabaTable} />   
           <Route exact path="/performa" component={IssuePerforma} />
             
         </Switch>
