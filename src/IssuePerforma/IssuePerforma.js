@@ -20,7 +20,7 @@ class IssuePerforma extends Component {
                                 {DropDownOption && DropDownOption.peers.map((item, index) => (
                                     <React.Fragment>
                                         {console.log(item)}
-                                        <option value={item} >{ item}</option>
+                                        <option value={item} >{item}</option>
                                     </React.Fragment>
 
                                 ))}
