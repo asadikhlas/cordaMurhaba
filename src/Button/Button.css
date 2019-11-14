@@ -1,0 +1,21 @@
+.main-btn{
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #dd5;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 600;
+    width: 500px;
+    transition: background 0.3s ease-in-out;
+}
+
+.main-btn:hover{
+    background-color: lightyellow;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 50px;
+}
