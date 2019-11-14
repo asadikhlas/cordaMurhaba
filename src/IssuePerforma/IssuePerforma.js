@@ -27,7 +27,7 @@ class IssuePerforma extends Component {
                             </select>
                             <br />
                             <br />
-                            <button className="performa-btn">Create Performa</button>
+                            <button type="submit" className="performa-btn">Create Performa</button>
 
                         </div>
                     </form>
