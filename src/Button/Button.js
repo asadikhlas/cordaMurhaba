@@ -3,10 +3,11 @@ import './Button.css';
 
 class Button extends Component {
     render() {
+        const { isRecordedTrue, isOwnedVault } = this.props
         return (
             <div className="container">
-               <button className="main-btn" >Owned Vault</button>
-               <button className="main-btn" >Recorded Vault</button>
+                <button className="main-btn" onClick={isOwnedVault} >Owned Vault</button>
+                <button className="main-btn" onClick={isRecordedTrue} >Recorded Vault</button>
             </div>
         )
     }
