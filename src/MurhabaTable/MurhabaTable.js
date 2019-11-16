@@ -6,12 +6,14 @@ import { Link } from 'react-router-dom'
 import Response from '../response.json';
 import { Modal } from 'react-bootstrap';
 import PerformaResponse from '../performaResponse.json';
+import purchaseOrderPerforma from '../purchaseOrderPerforma.json'
 
 class MurhabaTable extends Component {
     state = {
         isModalOpen: false,
         currentObj: {},
-        isRecordedTrue: false
+        isRecordedTrue: false,
+        isPurchaseModalOpen: false
     }
 
     isRecordedTrue = () => this.setState({ isRecordedTrue: true })
@@ -19,7 +21,7 @@ class MurhabaTable extends Component {
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
 
     render() {
-        const { isModalOpen, currentObj, isRecordedTrue } = this.state
+        const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
         return (
             <React.Fragment>
                 <Button isRecordedTrue={this.isRecordedTrue} isOwnedVault={this.isOwnedVault} />
@@ -56,6 +58,8 @@ class MurhabaTable extends Component {
                         :
                         <div>
                             <h2 style={{ textAlign: 'center' }} >Owned Vault</h2>
+                            <hr />
+                            <h2><b>Good State</b></h2>
                             <div className="flexer">
                                 <table className="rwd-table">
                                     <thead  >
@@ -68,7 +72,6 @@ class MurhabaTable extends Component {
                                     </thead>
                                     <tbody>
                                         {Response && Response.map((item, i) => (
-
                                             <tr>
                                                 <td>{item.state.data.asset} </td>
                                                 <td>{item.state.data.assetOwner}</td>
@@ -79,25 +82,59 @@ class MurhabaTable extends Component {
                                             </tr>
                                         ))}
 
-                                    </tbody></table>
+                                    </tbody>
+                                </table>
+
+
+
                             </div>
+
+                            {purchaseOrderPerforma &&
+                                <div>
+                                    <h2><b>Purchase Order State</b></h2>
+                                    <table className="rwd-table">
+                                        <thead  >
+                                            <tr >
+                                                <td>Date</td>
+                                                <td>Bank</td>
+                                                <td>Client</td>
+                                                <td>ReferenceID</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {purchaseOrderPerforma && purchaseOrderPerforma.map((item, i) => (
+
+                                                <tr>
+                                                    <td>{item.state.data.date} </td>
+                                                    <td>{item.state.data.bank}</td>
+                                                    <td>{item.state.data.client}</td>
+                                                    <td>{item.state.data.referenceId}</td>
+                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isPurchaseModalOpen: true })} >View</button></td>
+
+                                                </tr>
+                                            ))}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
                         </div>
                     }
 
 
                 </div>
                 {
-                    isModalOpen &&
+                    isPurchaseModalOpen &&
                     <Modal
-                        size="lg"
-                        show={isModalOpen}
+                        size="xl"
+                        show={isPurchaseModalOpen}
                         centered
-                        onHide={() => this.setState({ isModalOpen: false })}
+                        onHide={() => this.setState({ isPurchaseModalOpen: false })}
                         aria-labelledby="example-modal-sizes-title-lg"
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-lg">
-                                Owned vault
+                                Purchase State
                         </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
@@ -105,7 +142,55 @@ class MurhabaTable extends Component {
                                 <table className="rwd-table">
                                     <thead  >
                                         <tr >
-                                            <td>Asset</td>
+                                            <td>Date</td>
+                                            <td>Bank</td>
+                                            <td>Client</td>
+                                            <td>ReferenceID</td>
+                                            <td>Description</td>
+                                            <td>PerformaID</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{currentObj.state.data.date} </td>
+                                            <td>{currentObj.state.data.bank}</td>
+                                            <td>{currentObj.state.data.client}</td>
+                                            <td>{currentObj.state.data.referenceId}</td>
+                                            <td>{currentObj.state.data.description}</td>
+                                            <td>{currentObj.state.data.proformaId}</td>
+                                        </tr>
+                                        </tbody>
+                                </table>
+                            </div>
+
+                        </Modal.Body>
+                    </Modal>
+
+                }
+
+                {
+                    isModalOpen &&
+                    <Modal
+                        size="xl"
+                        show={isModalOpen}
+                        centered
+                        onHide={() => this.setState({ isModalOpen: false })}
+                        aria-labelledby="example-modal-sizes-title-lg"
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title id="example-modal-sizes-title-lg">
+                                Good State
+                        </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="flexer">
+                                <table className="rwd-table">
+                                    <thead  >
+                                        <tr >
+                                            <td></td>
                                             <td>Owner</td>
                                             <td>Client</td>
                                             <td>Reference</td>
@@ -129,7 +214,8 @@ class MurhabaTable extends Component {
                     </Modal>
 
                 }
-            </React.Fragment >
+
+            </React.Fragment>
         )
     }
 }

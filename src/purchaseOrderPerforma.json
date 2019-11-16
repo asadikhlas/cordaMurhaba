@@ -1,0 +1,142 @@
+[ {
+    "state" : {
+      "data" : {
+        "@class" : "com.example.states.PurchaseOrderState",
+        "date" : "MM-DD-YY",
+        "vendor" : "O=Seller, L=Lahorek, C=PK",
+        "bank" : "O=Bank, L=Karachi, C=PK",
+        "client" : "O=Borrower, L=Karachi, C=PK",
+        "referenceId" : "PO-MAPP-PR-1",
+        "proformaId" : "PR-1",
+        "description" : "Cotton",
+        "proforma" : {
+          "seller" : "O=Seller, L=Lahorek, C=PK",
+          "buyer" : "O=Borrower, L=Karachi, C=PK",
+          "date" : "MM-DD-YY",
+          "proformaId" : "PR-1",
+          "description" : "Cotton",
+          "goods" : {
+            "seller" : "O=Seller, L=Lahorek, C=PK",
+            "assetOwner" : "O=Seller, L=Lahorek, C=PK",
+            "quantity" : 1,
+            "internalReference" : "PR-1",
+            "asset" : "Cotton",
+            "takaful" : false,
+            "owner" : "O=Seller, L=Lahorek, C=PK",
+            "participants" : [ "O=Seller, L=Lahorek, C=PK" ]
+          },
+          "amount" : 100,
+          "participants" : [ "O=Borrower, L=Karachi, C=PK", "O=Seller, L=Lahorek, C=PK" ]
+        },
+        "amount" : 100,
+        "tenor" : 2,
+        "consumable" : true,
+        "insuranceTerms" : false
+      },
+      "contract" : "com.example.contracts.PurchaseOrderContract",
+      "notary" : "O=Notary, L=London, C=GB",
+      "encumbrance" : null,
+      "constraint" : {
+        "@class" : "net.corda.core.contracts.SignatureAttachmentConstraint",
+        "key" : "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6"
+      }
+    },
+    "ref" : {
+      "txhash" : "A43000BCE92F56F0ED5951C51BCD3161F8A1934A39736844BD323263FAC5E00C",
+      "index" : 0
+    }
+  }, {
+    "state" : {
+      "data" : {
+        "@class" : "com.example.states.PurchaseOrderState",
+        "date" : "MM-DD-YY",
+        "vendor" : "O=Seller, L=Lahorek, C=PK",
+        "bank" : "O=Bank, L=Karachi, C=PK",
+        "client" : "O=Borrower, L=Karachi, C=PK",
+        "referenceId" : "PO-MAPP-PR-2",
+        "proformaId" : "PR-2",
+        "description" : "Wheat",
+        "proforma" : {
+          "seller" : "O=Seller, L=Lahorek, C=PK",
+          "buyer" : "O=Borrower, L=Karachi, C=PK",
+          "date" : "MM-DD-YY",
+          "proformaId" : "PR-2",
+          "description" : "Wheat",
+          "goods" : {
+            "seller" : "O=Seller, L=Lahorek, C=PK",
+            "assetOwner" : "O=Seller, L=Lahorek, C=PK",
+            "quantity" : 1,
+            "internalReference" : "PR-2",
+            "asset" : "Wheat",
+            "takaful" : false,
+            "owner" : "O=Seller, L=Lahorek, C=PK",
+            "participants" : [ "O=Seller, L=Lahorek, C=PK" ]
+          },
+          "amount" : 200,
+          "participants" : [ "O=Borrower, L=Karachi, C=PK", "O=Seller, L=Lahorek, C=PK" ]
+        },
+        "amount" : 200,
+        "tenor" : 1,
+        "consumable" : true,
+        "insuranceTerms" : false
+      },
+      "contract" : "com.example.contracts.PurchaseOrderContract",
+      "notary" : "O=Notary, L=London, C=GB",
+      "encumbrance" : null,
+      "constraint" : {
+        "@class" : "net.corda.core.contracts.SignatureAttachmentConstraint",
+        "key" : "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6"
+      }
+    },
+    "ref" : {
+      "txhash" : "F00AD34DEC0C6802BDB04C93A62F6E5CCAA4CD52F54F34D616B9CFD051DE87F3",
+      "index" : 0
+    }
+  }, {
+    "state" : {
+      "data" : {
+        "@class" : "com.example.states.PurchaseOrderState",
+        "date" : "MM-DD-YY",
+        "vendor" : "O=Seller, L=Lahorek, C=PK",
+        "bank" : "O=Bank, L=Karachi, C=PK",
+        "client" : "O=Borrower, L=Karachi, C=PK",
+        "referenceId" : "PO-MAPP-PR-3",
+        "proformaId" : "PR-3",
+        "description" : "Fertilizer",
+        "proforma" : {
+          "seller" : "O=Seller, L=Lahorek, C=PK",
+          "buyer" : "O=Borrower, L=Karachi, C=PK",
+          "date" : "MM-DD-YY",
+          "proformaId" : "PR-3",
+          "description" : "Fertilizer",
+          "goods" : {
+            "seller" : "O=Seller, L=Lahorek, C=PK",
+            "assetOwner" : "O=Seller, L=Lahorek, C=PK",
+            "quantity" : 1,
+            "internalReference" : "PR-3",
+            "asset" : "Fertilizer",
+            "takaful" : false,
+            "owner" : "O=Seller, L=Lahorek, C=PK",
+            "participants" : [ "O=Seller, L=Lahorek, C=PK" ]
+          },
+          "amount" : 300,
+          "participants" : [ "O=Borrower, L=Karachi, C=PK", "O=Seller, L=Lahorek, C=PK" ]
+        },
+        "amount" : 300,
+        "tenor" : 1,
+        "consumable" : true,
+        "insuranceTerms" : false
+      },
+      "contract" : "com.example.contracts.PurchaseOrderContract",
+      "notary" : "O=Notary, L=London, C=GB",
+      "encumbrance" : null,
+      "constraint" : {
+        "@class" : "net.corda.core.contracts.SignatureAttachmentConstraint",
+        "key" : "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6"
+      }
+    },
+    "ref" : {
+      "txhash" : "1BA171D0A4968849841C73BC9981B16168CE7AD67BAAEFB3A1AF3810D0A95013",
+      "index" : 0
+    }
+  } ]
