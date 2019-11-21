@@ -134,7 +134,7 @@ class MurhabaTable extends Component {
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-lg">
-                                Purchase State
+                                Purchase Order
                         </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
@@ -149,8 +149,6 @@ class MurhabaTable extends Component {
                                             <td>Description</td>
                                             <td>PerformaID</td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -161,8 +159,11 @@ class MurhabaTable extends Component {
                                             <td>{currentObj.state.data.referenceId}</td>
                                             <td>{currentObj.state.data.description}</td>
                                             <td>{currentObj.state.data.proformaId}</td>
+                                            <td><button className='btn-murhaba' >Accept PO</button></td>
+
+
                                         </tr>
-                                        </tbody>
+                                    </tbody>
                                 </table>
                             </div>
 
@@ -182,7 +183,7 @@ class MurhabaTable extends Component {
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-lg">
-                                Good State
+                                Goods
                         </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
@@ -190,11 +191,12 @@ class MurhabaTable extends Component {
                                 <table className="rwd-table">
                                     <thead  >
                                         <tr >
-                                            <td></td>
+                                            <td>Assets</td>
                                             <td>Owner</td>
                                             <td>Client</td>
                                             <td>Reference</td>
                                             <td>Takaful</td>
+                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -204,8 +206,7 @@ class MurhabaTable extends Component {
                                             <td>{currentObj.state.data.client}</td>
                                             <td>{currentObj.state.data.internalReference}</td>
                                             {currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}
-
-
+                                            <td><button className='btn-murhaba' >Redeem</button></td>
                                         </tr>
                                     </tbody></table>
                             </div>
