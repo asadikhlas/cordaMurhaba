@@ -7,6 +7,7 @@ import Response from '../response.json';
 import { Modal } from 'react-bootstrap';
 import PerformaResponse from '../performaResponse.json';
 import purchaseOrderPerforma from '../purchaseOrderPerforma.json'
+import axios from 'axios'
 
 class MurhabaTable extends Component {
     state = {
@@ -19,6 +20,16 @@ class MurhabaTable extends Component {
     isRecordedTrue = () => this.setState({ isRecordedTrue: true })
 
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
+
+
+    handleAccept = (referenceId) => {
+        console.log("REFERENCE ID", referenceId)
+        axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
+            console.log(response)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     render() {
         const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
@@ -159,7 +170,7 @@ class MurhabaTable extends Component {
                                             <td>{currentObj.state.data.referenceId}</td>
                                             <td>{currentObj.state.data.description}</td>
                                             <td>{currentObj.state.data.proformaId}</td>
-                                            <td><button className='btn-murhaba' >Accept PO</button></td>
+                                            <td><button className='btn-murhaba' onClick={()=>this.handleAccept(currentObj.state.data.referenceId)} >Accept PO</button></td>
 
 
                                         </tr>
