@@ -1,5 +1,4 @@
 header {
-
     width: 100%;
     background-color: #044d91;
     color: white;
@@ -8,5 +7,6 @@ header {
     overflow-x: hidden; 
     display: flex;
     justify-content: space-between;
-    align-items: center 
+    align-items: center;
+    height: 50px;
 }

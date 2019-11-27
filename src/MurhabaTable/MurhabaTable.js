@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import './MurhabaTable.css';
-import Header from '../Header/Header';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
 import Response from '../response.json';
 import { Modal } from 'react-bootstrap';
 import PerformaResponse from '../performaResponse.json';
 import purchaseOrderPerforma from '../purchaseOrderPerforma.json'
+import { Tabs } from 'antd';
+
+const { TabPane } = Tabs;
 
 class MurhabaTable extends Component {
     state = {
@@ -16,6 +18,11 @@ class MurhabaTable extends Component {
         isPurchaseModalOpen: false
     }
 
+    callback = (key) => {
+        console.log(key);
+    }
+
+
     isRecordedTrue = () => this.setState({ isRecordedTrue: true })
 
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
@@ -24,6 +31,15 @@ class MurhabaTable extends Component {
         const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
         return (
             <React.Fragment>
+            <h2 style={{ textAlign: 'center' }} >Owned Vault</h2>
+                <Tabs defaultActiveKey="1" onChange={this.callback}>
+                    <TabPane tab="Good State" key="1">
+                        Content of Tab Pane 1
+                    </TabPane>
+                    <TabPane tab="Purchase Order State" key="2">
+                        Content of Tab Pane 2
+                    </TabPane>
+                </Tabs>
                 <Button isRecordedTrue={this.isRecordedTrue} isOwnedVault={this.isOwnedVault} />
                 <div className="flexer" style={{ flexDirection: 'column' }}>
                     <Link to="/performa" ><button className="main-btn" style={{ marginTop: '10px' }} >Issue Performa</button></Link>
@@ -57,7 +73,7 @@ class MurhabaTable extends Component {
                         </div>
                         :
                         <div>
-                            <h2 style={{ textAlign: 'center' }} >Owned Vault</h2>
+                            {/* <h2 style={{ textAlign: 'center' }} >Owned Vault</h2> */}
                             <hr />
                             <h2><b>Good State</b></h2>
                             <div className="flexer">
@@ -162,7 +178,7 @@ class MurhabaTable extends Component {
                                             <td>{currentObj.state.data.description}</td>
                                             <td>{currentObj.state.data.proformaId}</td>
                                         </tr>
-                                        </tbody>
+                                    </tbody>
                                 </table>
                             </div>
 
