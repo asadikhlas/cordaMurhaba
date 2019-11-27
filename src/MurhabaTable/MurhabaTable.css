@@ -93,3 +93,8 @@ body {
 .btn-murhaba:hover{
     background-color: lightyellow;
 }
+
+.text-field {
+  background-color: white !important;
+  width: 100% !important;
+}

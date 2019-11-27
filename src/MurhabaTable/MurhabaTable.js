@@ -7,7 +7,6 @@ import { Modal } from 'react-bootstrap';
 import PerformaResponse from '../performaResponse.json';
 import purchaseOrderPerforma from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
-
 const { TabPane } = Tabs;
 
 class MurhabaTable extends Component {
@@ -26,6 +25,16 @@ class MurhabaTable extends Component {
     isRecordedTrue = () => this.setState({ isRecordedTrue: true })
 
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
+
+
+    handleAccept = (referenceId) => {
+        console.log("REFERENCE ID", referenceId)
+        axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
+            console.log(response)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     render() {
         const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
@@ -150,7 +159,7 @@ class MurhabaTable extends Component {
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-lg">
-                                Purchase State
+                                Purchase Order
                         </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
@@ -165,8 +174,6 @@ class MurhabaTable extends Component {
                                             <td>Description</td>
                                             <td>PerformaID</td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -177,6 +184,9 @@ class MurhabaTable extends Component {
                                             <td>{currentObj.state.data.referenceId}</td>
                                             <td>{currentObj.state.data.description}</td>
                                             <td>{currentObj.state.data.proformaId}</td>
+                                            <td><button className='btn-murhaba' onClick={()=>this.handleAccept(currentObj.state.data.referenceId)} >Accept PO</button></td>
+
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -198,7 +208,7 @@ class MurhabaTable extends Component {
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-lg">
-                                Good State
+                                Goods
                         </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
@@ -206,11 +216,12 @@ class MurhabaTable extends Component {
                                 <table className="rwd-table">
                                     <thead  >
                                         <tr >
-                                            <td></td>
+                                            <td>Assets</td>
                                             <td>Owner</td>
                                             <td>Client</td>
                                             <td>Reference</td>
                                             <td>Takaful</td>
+                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -220,8 +231,7 @@ class MurhabaTable extends Component {
                                             <td>{currentObj.state.data.client}</td>
                                             <td>{currentObj.state.data.internalReference}</td>
                                             {currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}
-
-
+                                            <td><button className='btn-murhaba' >Redeem</button></td>
                                         </tr>
                                     </tbody></table>
                             </div>
