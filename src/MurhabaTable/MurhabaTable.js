@@ -25,6 +25,13 @@ class MurhabaTable extends Component {
 
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
 
+  org(party){
+    //O=Seller, L=Lahorek, C=PK
+    var i= party.indexOf('O');
+    var i2 = party.indexOf(",");
+    var o= party.slice(i+2,i2);
+    return o;
+}
 
     // handleAccept = (referenceId) => {
     //     console.log("REFERENCE ID", referenceId)
@@ -59,8 +66,8 @@ class MurhabaTable extends Component {
                                             {Response && Response.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.asset} </td>
-                                                    <td>{item.state.data.assetOwner}</td>
-                                                    <td>{item.state.data.client}</td>
+                                                    <td>{this.org(item.state.data.assetOwner)}</td>
+                                                    <td>{this.org(item.state.data.client)}</td>
                                                     <td>{item.state.data.internalReference}</td>
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isModalOpen: true })} >View</button></td>
 
@@ -93,8 +100,8 @@ class MurhabaTable extends Component {
 
                                                 <tr>
                                                     <td>{item.state.data.date} </td>
-                                                    <td>{item.state.data.bank}</td>
-                                                    <td>{item.state.data.client}</td>
+                                                    <td>{this.org(item.state.data.bank)}</td>
+                                                    <td>{this.org(item.state.data.client)}</td>
                                                     <td>{item.state.data.referenceId}</td>
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isPurchaseModalOpen: true })} >View</button></td>
 
