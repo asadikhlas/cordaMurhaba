@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PerformaResponse from '../performaResponse.json';
 import { Tabs } from 'antd';
+import Header from '../Header/Header';
 
 const { TabPane } = Tabs;
 
@@ -12,6 +13,7 @@ class SellerRecordedVault extends Component {
     render() {
         return (
             <div>
+            <Header />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Recorded Vault</h2>
                 <Tabs defaultActiveKey="1" onChange={this.callback}>
                     <TabPane tab="Recorded Vault 1" key="1">

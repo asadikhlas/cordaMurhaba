@@ -6,6 +6,7 @@ import Response from '../response.json';
 import { Modal } from 'react-bootstrap';
 import purchaseOrderPerforma from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
+import Header from '../Header/Header';
 const { TabPane } = Tabs;
 
 class MurhabaTable extends Component {
@@ -25,13 +26,13 @@ class MurhabaTable extends Component {
 
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
 
-  org(party){
-    //O=Seller, L=Lahorek, C=PK
-    var i= party.indexOf('O');
-    var i2 = party.indexOf(",");
-    var o= party.slice(i+2,i2);
-    return o;
-}
+    org(party) {
+        //O=Seller, L=Lahorek, C=PK
+        var i = party.indexOf('O');
+        var i2 = party.indexOf(",");
+        var o = party.slice(i + 2, i2);
+        return o;
+    }
 
     // handleAccept = (referenceId) => {
     //     console.log("REFERENCE ID", referenceId)
@@ -46,6 +47,7 @@ class MurhabaTable extends Component {
         const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
         return (
             <React.Fragment>
+                <Header />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
@@ -116,11 +118,11 @@ class MurhabaTable extends Component {
                     </Tabs>
                 </div>
 
-                <Button onClick={()=>this.props.history.push('/sellerRecordedVault')} isOwnedVault={this.isOwnedVault} />
+                {/* <Button onClick={() => this.props.history.push('/sellerRecordedVault')} isOwnedVault={this.isOwnedVault} />
                 <div className="flexer" style={{ flexDirection: 'column' }}>
                     <Link to="/performa" ><button className="main-btn" style={{ marginTop: '10px' }} >Issue Performa</button></Link>
                     <br />
-                </div>
+                </div> */}
 
                 {
                     isPurchaseModalOpen &&

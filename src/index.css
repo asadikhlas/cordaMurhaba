@@ -11,3 +11,6 @@ body {
 .test-border{
     border: 2px solid red;
 }
+a {
+    font-size: 1.2em;
+}

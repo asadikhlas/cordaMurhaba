@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import './IssuePerforma.css'
 import DropDownOption from '../dropdown.json'
-
+import Header from '../Header/Header'
 class IssuePerforma extends Component {
     render() {
         return (
             <div>
+            <Header />
                 <div>
                     <form >
                         <div className="login flexer" style={{ flexDirection: 'column' }} >
