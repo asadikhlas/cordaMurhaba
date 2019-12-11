@@ -176,7 +176,7 @@ class MurhabaTable extends Component {
                 {
                     isModalOpen &&
                     <Modal
-                        size="xl"
+                        size="lg"
                         show={isModalOpen}
                         centered
                         onHide={() => this.setState({ isModalOpen: false })}
@@ -190,14 +190,22 @@ class MurhabaTable extends Component {
                         <Modal.Body>
                             <div className="flexer">
                                 <table className="rwd-table">
-                                    <thead  >
+                                <tr> <td> Reference</td><td>{currentObj.state.data.internalReference}</td></tr>
+                                <tr ><td>Assets</td><td>{currentObj.state.data.asset} </td></tr>
+                                            <tr >   <td>Owner</td> <td>{currentObj.state.data.assetOwner}</td></tr>
+                                            <tr >  <td>Client</td><td>{currentObj.state.data.client}</td></tr>
+                                           
+                                            <tr >  <td>Takaful</td>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
+                                            <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
+                                        
+                                    {/* <thead  >
                                         <tr >
                                             <td>Assets</td>
                                             <td>Owner</td>
                                             <td>Client</td>
                                             <td>Reference</td>
                                             <td>Takaful</td>
-                                            <td></td>
+                                            {currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -209,7 +217,8 @@ class MurhabaTable extends Component {
                                             {currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}
                                             <td><button className='btn-murhaba' >Redeem</button></td>
                                         </tr>
-                                    </tbody></table>
+                                    </tbody> */}
+                                    </table>
                             </div>
 
                         </Modal.Body>
