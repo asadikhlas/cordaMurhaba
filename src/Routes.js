@@ -9,6 +9,7 @@ import MurhabaTable from './MurhabaTable/MurhabaTable'
 import IssuePerforma from './IssuePerforma/IssuePerforma'
 import SellerRecordedVault from './SellerRecordedVault/SellerRecordedVault';
 import BorrowerDashboard from './BorrowerDashboard/BorrowerDashboard';
+import BankDashboard from './BankDashboard/BankDashboard';
 
 class Routes extends Component {
   render() {
@@ -20,6 +21,9 @@ class Routes extends Component {
             <Route exact path="/performa" component={IssuePerforma} />
             <Route exact path="/sellerRecordedVault" component={SellerRecordedVault} />
             <Route exact path="/borrowerDashboard" component={BorrowerDashboard} />
+            <Route exact path="/borrowerDashboard" component={BorrowerDashboard} />
+            <Route exact path="/bankDashboard" component={BankDashboard} />
+
           </Switch>
         </div>
       </Router>

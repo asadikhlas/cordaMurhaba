@@ -1,0 +1,77 @@
+[ {
+  "state" : {
+    "data" : {
+      "@class" : "com.example.states.MurabahaState",
+      "bank" : "O=Bank, L=Karachi, C=PK",
+      "borrower" : "O=Borrower, L=Karachi, C=PK",
+      "internalReference" : "MUR-MAPP-PR-1",
+      "ageementDate" : "MM-DD-YY",
+      "goods" : {
+        "seller" : "O=Seller, L=Lahorek, C=PK",
+        "assetOwner" : "O=Borrower, L=Karachi, C=PK",
+        "quantity" : 1,
+        "internalReference" : "PR-1",
+        "asset" : "Cotton",
+        "takaful" : false,
+        "owner" : "O=Borrower, L=Karachi, C=PK",
+        "participants" : [ "O=Borrower, L=Karachi, C=PK" ]
+      },
+      "costPrice" : 100,
+      "sellingprice" : 100.4775,
+      "profitrate" : 19.1,
+      "term" : 30,
+      "bankSignature" : true,
+      "borrowerSignature" : true,
+      "participants" : [ "O=Bank, L=Karachi, C=PK", "O=Borrower, L=Karachi, C=PK" ]
+    },
+    "contract" : "com.example.contracts.MurabahaContract",
+    "notary" : "O=Notary, L=London, C=GB",
+    "encumbrance" : null,
+    "constraint" : {
+      "@class" : "net.corda.core.contracts.SignatureAttachmentConstraint",
+      "key" : "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6"
+    }
+  },
+  "ref" : {
+    "txhash" : "AAFBA6749DF1CA5D8A6FF803DA4E06674C21A4B5C064A61067482E32397A3A80",
+    "index" : 1
+  }
+}, {
+  "state" : {
+    "data" : {
+      "@class" : "com.example.states.MurabahaState",
+      "bank" : "O=Bank, L=Karachi, C=PK",
+      "borrower" : "O=Borrower, L=Karachi, C=PK",
+      "internalReference" : "MUR-MAPP-PR-2",
+      "ageementDate" : "MM-DD-YY",
+      "goods" : {
+        "seller" : "O=Seller, L=Lahorek, C=PK",
+        "assetOwner" : "O=Borrower, L=Karachi, C=PK",
+        "quantity" : 1,
+        "internalReference" : "PR-2",
+        "asset" : "Wheat",
+        "takaful" : false,
+        "owner" : "O=Borrower, L=Karachi, C=PK",
+        "participants" : [ "O=Borrower, L=Karachi, C=PK" ]
+      },
+      "costPrice" : 200,
+      "sellingprice" : 200.71625,
+      "profitrate" : 19.1,
+      "term" : 45,
+      "bankSignature" : true,
+      "borrowerSignature" : true,
+      "participants" : [ "O=Bank, L=Karachi, C=PK", "O=Borrower, L=Karachi, C=PK" ]
+    },
+    "contract" : "com.example.contracts.MurabahaContract",
+    "notary" : "O=Notary, L=London, C=GB",
+    "encumbrance" : null,
+    "constraint" : {
+      "@class" : "net.corda.core.contracts.SignatureAttachmentConstraint",
+      "key" : "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6"
+    }
+  },
+  "ref" : {
+    "txhash" : "AFBE57BFC5E4A326C57B69E343B3FD6FB2BAA623C8B0E86D26A05CF0224FD165",
+    "index" : 1
+  }
+} ]

@@ -10,6 +10,13 @@ class SellerRecordedVault extends Component {
     callback = (key) => {
         console.log(key);
     }
+    org(party) {
+        //O=Seller, L=Lahorek, C=PK
+        var i = party.indexOf('O');
+        var i2 = party.indexOf(",");
+        var o = party.slice(i + 2, i2);
+        return o;
+    }
     render() {
         return (
             <div>
@@ -30,7 +37,7 @@ class SellerRecordedVault extends Component {
                                 <tbody>
                                     {PerformaResponse && PerformaResponse.map((item, i) => (
                                         <tr>
-                                            <td>{item.state.data.buyer} </td>
+                                            <td>{this.org(item.state.data.buyer)} </td>
                                             <td>{item.state.data.date}</td>
                                             <td>{item.state.data.proformaId}</td>
                                             <td>{item.state.data.description}</td>
