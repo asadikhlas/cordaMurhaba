@@ -10,6 +10,7 @@ import IssuePerforma from './IssuePerforma/IssuePerforma'
 import SellerRecordedVault from './SellerRecordedVault/SellerRecordedVault';
 import BorrowerDashboard from './BorrowerDashboard/BorrowerDashboard';
 import BankDashboard from './BankDashboard/BankDashboard';
+import BankRecordedVault from './BankRecordedVault/BankRecordedVault';
 
 class Routes extends Component {
   render() {
@@ -23,6 +24,7 @@ class Routes extends Component {
             <Route exact path="/borrowerDashboard" component={BorrowerDashboard} />
             <Route exact path="/borrowerDashboard" component={BorrowerDashboard} />
             <Route exact path="/bankDashboard" component={BankDashboard} />
+            <Route exact path="/bankRecordedVault" component={BankRecordedVault} />
 
           </Switch>
         </div>

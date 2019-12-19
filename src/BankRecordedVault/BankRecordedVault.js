@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import './MurhabaTable.css';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
 import Response from '../response.json';
 import { Modal } from 'react-bootstrap';
-import purchaseOrderPerforma from '../purchaseOrderPerforma.json'
+import murabahaApplication from '../MurabahaApplicationState.json'
+import murabahaAgreement from '../Murabaha.json'
+import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
 import Header from '../Header/Header';
 const { TabPane } = Tabs;
 
-class MurhabaTable extends Component {
+class BorrowerDashboard extends Component {
     state = {
         isModalOpen: false,
         currentObj: {},
@@ -27,7 +28,7 @@ class MurhabaTable extends Component {
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
 
     org(party) {
-        //O=Seller, L=Lahorek, C=PK
+
         var i = party.indexOf('O');
         var i2 = party.indexOf(",");
         var o = party.slice(i + 2, i2);
@@ -48,29 +49,29 @@ class MurhabaTable extends Component {
         return (
             <React.Fragment>
                 <Header />
-                <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
+                <h2 className="mt-3" style={{ textAlign: 'center' }} Bank>Recorded Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
-                        <TabPane tab="Good State" key="1">
+                        <TabPane tab="Murabaha Applications" key="1">
                             <div>
-                                <h2><b>Good State</b></h2>
+                                <h2><b>Murabaha Applications</b></h2>
                                 <div className="flexer">
                                     <table className="rwd-table">
                                         <thead  >
                                             <tr >
-                                                <td>Asset</td>
-                                                <td>Owner</td>
-                                                <td>Vendor</td>
-                                                <td>Reference</td>
+                                                <td>Date</td>
+                                                <td>Reference No.</td>
+                                                <td>Applicant</td>
+                                                <td>Amount</td>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Response && Response.map((item, i) => (
+                                            {Response && murabahaApplication.map((item, i) => (
                                                 <tr>
-                                                    <td>{item.state.data.asset} </td>
-                                                    <td>{this.org(item.state.data.assetOwner)}</td>
-                                                    <td>{this.org(item.state.data.seller)}</td>
-                                                    <td>{item.state.data.internalReference}</td>
+                                                    <td>{item.state.data.date} </td>
+                                                    <td>{item.state.data.referenceId}</td>
+                                                    <td>{this.org(item.state.data.applicant)}</td>
+                                                    <td>{item.state.data.amount}</td>
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isModalOpen: true })} >View</button></td>
 
                                                 </tr>
@@ -84,27 +85,29 @@ class MurhabaTable extends Component {
                                 </div>
                             </div>
                         </TabPane>
-                        {purchaseOrderPerforma && <TabPane tab="Purchase Order State" key="2">
-                            {purchaseOrderPerforma &&
+                        {purchaseOrder && <TabPane tab="Goods" key="2">
+                            {purchaseOrder &&
                                 <div className="flexer" style={{ flexDirection: 'column' }}>
-                                    <h2><b>Purchase Order State</b></h2>
+                                    <h2><b>Goods</b></h2>
                                     <table className="rwd-table">
                                         <thead  >
                                             <tr >
-                                                <td>Date</td>
-                                                <td>Bank</td>
-                                                <td>Client</td>
-                                                <td>ReferenceID</td>
+                                            <td>Reference</td>
+                                            <td>Client</td> 
+                                            <td>Asset</td>
+                                             <td>Vendor</td>
+                                                
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {purchaseOrderPerforma && purchaseOrderPerforma.map((item, i) => (
-
+                                        {Response && Response.map((item, i) => (
                                                 <tr>
-                                                    <td>{item.state.data.date} </td>
-                                                    <td>{this.org(item.state.data.bank)}</td>
-                                                    <td>{this.org(item.state.data.client)}</td>
-                                                    <td>{item.state.data.referenceId}</td>
+                                                     <td>{item.state.data.internalReference}</td>
+                                                     <td>{this.org(item.state.data.client)}</td>
+                                                    <td>{item.state.data.asset} </td>
+                                                     <td>{this.org(item.state.data.seller)}</td>
+                                                   
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isPurchaseModalOpen: true })} >View</button></td>
 
                                                 </tr>
@@ -115,6 +118,39 @@ class MurhabaTable extends Component {
                                 </div>
                             }
                         </TabPane>}
+                        <TabPane tab="Murabaha Agreements" key="3">
+                        <div>
+                                <h2><b>Murabaha Agreements</b></h2>
+                                <div className="flexer">
+                                    <table className="rwd-table">
+                                        <thead  >
+                                            <tr >
+                                                <td>Date</td>
+                                                <td>Reference No.</td>
+                                                <td>Borrower</td>
+                                                <td>Term</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {Response && murabahaAgreement.map((item, i) => (
+                                                <tr>
+                                                    <td>{item.state.data.ageementDate} </td>
+                                                    <td>{item.state.data.internalReference}</td>
+                                                    <td>{this.org(item.state.data.borrower)}</td>
+                                                    <td>{item.state.data.term}</td>
+                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isModalOpen: true })} >View</button></td>
+
+                                                </tr>
+                                            ))}
+
+                                        </tbody>
+                                    </table>
+
+
+
+                                </div>
+                            </div>
+                        </TabPane>
                     </Tabs>
                 </div>
 
@@ -192,8 +228,8 @@ class MurhabaTable extends Component {
                                 <table className="rwd-table">
                                 <tr> <td> Reference</td><td>{currentObj.state.data.internalReference}</td></tr>
                                 <tr ><td>Assets</td><td>{currentObj.state.data.asset} </td></tr>
-                                            <tr >   <td></td> <td>{currentObj.state.data.seller}</td></tr>
-                                            <tr >  <td>Vendor</td><td>{this.org(currentObj.state.data.seller)}</td></tr>
+                                            <tr >   <td>Owner</td> <td>{currentObj.state.data.assetOwner}</td></tr>
+                                            <tr >  <td>Client</td><td>{currentObj.state.data.client}</td></tr>
                                            
                                             <tr >  <td>Takaful</td>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
                                             <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
@@ -231,4 +267,4 @@ class MurhabaTable extends Component {
     }
 }
 
-export default MurhabaTable
+export default BorrowerDashboard

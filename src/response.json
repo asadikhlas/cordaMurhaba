@@ -62,6 +62,7 @@
                 "seller": "O=Seller, L=Lahorek, C=PK",
                 "assetOwner": "O=Seller, L=Lahorek, C=PK",
                 "client": "O=Seller, L=Lahorek, C=PK",
+                "quantity": "5 Kgs",
                 "internalReference": "PR-5",
                 "asset": "Cement",
                 "takaful": false,
