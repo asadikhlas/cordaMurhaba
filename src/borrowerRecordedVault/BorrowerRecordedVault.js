@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import Response from '../response.json';
 import { Modal } from 'react-bootstrap';
 import murabahaApplication from '../MurabahaApplicationState.json'
-import PerformaResponse from '../performaResponse.json';
-
 import murabahaAgreement from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
@@ -54,25 +52,25 @@ class BorrowerDashboard extends Component {
                 <h2 className="mt-3" style={{ textAlign: 'center' }} Bank>Recorded Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
-                        <TabPane tab="Proformas" key="1">
+                        <TabPane tab="Murabaha Applications" key="1">
                             <div>
-                                <h2><b>Proformas</b></h2>
+                                <h2><b>Murabaha Applications</b></h2>
                                 <div className="flexer">
                                     <table className="rwd-table">
                                         <thead  >
                                             <tr >
                                                 <td>Date</td>
                                                 <td>Reference No.</td>
-                                                <td>Client</td>
+                                                <td>Applicant</td>
                                                 <td>Amount</td>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Response && PerformaResponse.map((item, i) => (
+                                            {Response && murabahaApplication.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.date} </td>
-                                                    <td>{item.state.data.proformaId}</td>
-                                                    <td>{this.org(item.state.data.buyer)}</td>
+                                                    <td>{item.state.data.referenceId}</td>
+                                                    <td>{this.org(item.state.data.applicant)}</td>
                                                     <td>{item.state.data.amount}</td>
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isModalOpen: true })} >View</button></td>
 

@@ -17,7 +17,7 @@ class Header extends Component {
                     <a className="ml-3" onClick={()=>this.props.history.push('/sellerRecordedVault')} >Recorded Vault</a>
                     <a className="ml-3" onClick={()=>this.props.history.push('/performa')}>Issue Performa</a>
                 </div>
-                <span>Seller Name</span>
+                <span>Seller Dashboard</span>
             </header>
         )
     }

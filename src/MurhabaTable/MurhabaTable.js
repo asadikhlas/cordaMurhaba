@@ -51,9 +51,9 @@ class MurhabaTable extends Component {
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
-                        <TabPane tab="Good State" key="1">
+                        <TabPane tab="Goods" key="1">
                             <div>
-                                <h2><b>Good State</b></h2>
+                                <h2><b>Goods</b></h2>
                                 <div className="flexer">
                                     <table className="rwd-table">
                                         <thead  >
@@ -84,10 +84,10 @@ class MurhabaTable extends Component {
                                 </div>
                             </div>
                         </TabPane>
-                        {purchaseOrderPerforma && <TabPane tab="Purchase Order State" key="2">
+                        {purchaseOrderPerforma && <TabPane tab="Purchase Orders" key="2">
                             {purchaseOrderPerforma &&
                                 <div className="flexer" style={{ flexDirection: 'column' }}>
-                                    <h2><b>Purchase Order State</b></h2>
+                                    <h2><b>Purchase Orders</b></h2>
                                     <table className="rwd-table">
                                         <thead  >
                                             <tr >

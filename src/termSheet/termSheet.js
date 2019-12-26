@@ -17,15 +17,15 @@ class IssuePerforma extends Component {
                 <div>
                     <form >
                         <div className="login flexer" style={{ flexDirection: 'column' }} >
-                            <h2>Issue Proforma</h2>
+                            <h2>Issue Term Sheet</h2>
 
-                            <input name="ReferenceID" placeholder="ReferenceID" type="text" />
+                            <input name="ReferenceID" placeholder="TermSheet Reference" type="text" />
                             <input name="GoodsID" placeholder="GoodsID" type="text" />
 
-                            <input id="pw" name="goodsdescription" placeholder="Goods Description" type="text" />
-                            <input id="qty" name="quantity" placeholder="Goods quantity" type="text" />
+                            <input id="pw" name="goodsdescription" placeholder="Limit" type="number" />
+                            <input id="qty" name="quantity" placeholder="Profit Rate" type="number" />
 
-                            <input name="amount" placeholder="Amount" type="number" />
+                            <input name="amount" placeholder="Tenor" type="number" />
                             <br />
 
                             <select>
