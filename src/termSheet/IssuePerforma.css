@@ -18,7 +18,7 @@
     color: #435160;
     text-decoration: none;
   }
-  input[type="text"], input[type="number"] {
+  input[type="text"]{
     width: 500px;
     padding: 20px 0px;
     background: transparent;

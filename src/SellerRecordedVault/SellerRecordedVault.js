@@ -10,6 +10,8 @@ import murabahaAgreement from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
 import Header from '../Header/Header';
+import DropDownOption from '../dropdown.json'
+
 const { TabPane } = Tabs;
 
 class BorrowerDashboard extends Component {
@@ -29,6 +31,10 @@ class BorrowerDashboard extends Component {
 
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
 
+
+    /**
+     * @param  {Array} party
+     */
     org(party) {
 
         var i = party.indexOf('O');
@@ -48,6 +54,7 @@ class BorrowerDashboard extends Component {
 
     render() {
         const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
+        console.log("CURRENT OBJECT", currentObj)
         return (
             <React.Fragment>
                 <Header />
@@ -94,22 +101,22 @@ class BorrowerDashboard extends Component {
                                     <table className="rwd-table">
                                         <thead  >
                                             <tr >
-                                            <td>Reference</td>
-                                            <td>Client</td> 
-                                            <td>Asset</td>
-                                             <td>Vendor</td>
-                                                
-                                                
+                                                <td>Reference</td>
+                                                <td>Client</td>
+                                                <td>Asset</td>
+                                                <td>Vendor</td>
+
+
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {Response && Response.map((item, i) => (
+                                            {Response && Response.map((item, i) => (
                                                 <tr>
-                                                     <td>{item.state.data.internalReference}</td>
-                                                     <td>{this.org(item.state.data.client)}</td>
+                                                    <td>{item.state.data.internalReference}</td>
+                                                    <td>{this.org(item.state.data.client)}</td>
                                                     <td>{item.state.data.asset} </td>
-                                                     <td>{this.org(item.state.data.seller)}</td>
-                                                   
+                                                    <td>{this.org(item.state.data.seller)}</td>
+
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isPurchaseModalOpen: true })} >View</button></td>
 
                                                 </tr>
@@ -121,7 +128,7 @@ class BorrowerDashboard extends Component {
                             }
                         </TabPane>}
                         <TabPane tab="Murabaha Agreements" key="3">
-                        <div>
+                            <div>
                                 <h2><b>Murabaha Agreements</b></h2>
                                 <div className="flexer">
                                     <table className="rwd-table">
@@ -227,15 +234,20 @@ class BorrowerDashboard extends Component {
                         </Modal.Header>
                         <Modal.Body>
                             <div className="flexer">
-                                <table className="rwd-table">
-                                <tr> <td> Reference</td><td>{currentObj.state.data.internalReference}</td></tr>
-                                <tr ><td>Assets</td><td>{currentObj.state.data.asset} </td></tr>
-                                            <tr >   <td>Owner</td> <td>{currentObj.state.data.assetOwner}</td></tr>
-                                            <tr >  <td>Client</td><td>{currentObj.state.data.client}</td></tr>
-                                           
-                                            <tr >  <td>Takaful</td>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
-                                            <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
-                                        
+                                <table className="rwd-table w-75">
+                                    <tr> <td> Reference</td><td>{currentObj.state.data.goods.internalReference}</td></tr>
+                                    <tr><td>Assets</td><td>{currentObj.state.data.goods.asset} </td></tr>
+                                    <tr><td>Owner</td> <td>{currentObj.state.data.goods.assetOwner}</td></tr>
+                                    <tr><td>Client</td><td>{currentObj.state.data.buyer}</td></tr>
+                                    <tr><td>Takaful</td>{currentObj.state.data.goods.takaful ? <td>Yes</td> : <td>No</td>}</tr>
+                                    <tr>
+                                        <td>
+                                            <button className='btn-murhaba'>Redeem</button>
+                                        </td>
+                                    </tr>
+                                    {/* <tr></tr> */}
+                                    {/* <tr><td></td></tr> */}
+
                                     {/* <thead  >
                                         <tr >
                                             <td>Assets</td>
@@ -256,7 +268,7 @@ class BorrowerDashboard extends Component {
                                             <td><button className='btn-murhaba' >Redeem</button></td>
                                         </tr>
                                     </tbody> */}
-                                    </table>
+                                </table>
                             </div>
 
                         </Modal.Body>

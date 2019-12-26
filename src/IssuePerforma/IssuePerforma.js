@@ -25,7 +25,7 @@ class IssuePerforma extends Component {
                             <input id="pw" name="goodsdescription" placeholder="Goods Description" type="text" />
                             <input id="qty" name="quantity" placeholder="Goods quantity" type="text" />
 
-                            <input name="amount" placeholder="Amount" type="number" />
+                            <input className="amount-input" name="amount" placeholder="Amount" type="number" />
                             <br />
 
                             <select>
