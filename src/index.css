@@ -9,7 +9,7 @@ body {
 }
 
 .test-border{
-    border: 2px solid red;
+    border: 2px solid red !important; 
 }
 a {
     font-size: 1.2em;

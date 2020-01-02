@@ -30,17 +30,6 @@
     font-weight: bold
   }
   
-  .amount-input{
-    width: 500px;
-    padding: 20px 0px;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid #435160;
-    outline: none;
-    color: #6D7781;
-    font-size: 16px;
-    font-weight: bold
-  }
   
   .performa-btn{
     background: #dd5;
@@ -60,25 +49,7 @@
     border-radius: 5px;
 
   }
-
-  .goods-amount{
-    width: 70px;
-    padding: 10px 0px;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid white;
-    outline: none;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    margin-right:10px;
-  }
   
-  .option {
-    color: black;
-    /* width: 100%; */
-    border: 1px solid yellow;
-  }
 
   
   

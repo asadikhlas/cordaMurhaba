@@ -92,6 +92,7 @@ body {
 
 .btn-murhaba:hover{
     background-color: lightyellow;
+    color: black;
 }
 
 .text-field {
