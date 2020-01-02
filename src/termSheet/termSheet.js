@@ -20,12 +20,11 @@ class IssuePerforma extends Component {
                             <h2>Issue Term Sheet</h2>
 
                             <input name="ReferenceID" placeholder="TermSheet Reference" type="text" />
-                            <input name="GoodsID" placeholder="GoodsID" type="text" />
+                            
+                            <input id="limit" name="limit" placeholder="Limit" type="text" />
+                            <input id="rate" name="rate" placeholder="Profit Rate" type="text" />
 
-                            <input id="pw" name="goodsdescription" placeholder="Limit" type="number" />
-                            <input id="qty" name="quantity" placeholder="Profit Rate" type="number" />
-
-                            <input name="amount" placeholder="Tenor" type="number" />
+                            <input name="amount" placeholder="Tenor" type="text" />
                             <br />
 
                             <select>
@@ -39,7 +38,7 @@ class IssuePerforma extends Component {
                             </select>
                             <br />
                             <br />
-                            <button type="submit" className="performa-btn">Create Proforma</button>
+                            <button type="submit" className="performa-btn">Issue Termsheet</button>
 
                         </div>
                     </form>

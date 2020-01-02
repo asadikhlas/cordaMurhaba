@@ -1,21 +1,25 @@
 import React, { Component } from 'react'
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
-import Response from '../response.json';
+import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
-import murabahaApplication from '../MurabahaApplicationState.json'
+import applications from '../MurabahaApplicationState.json'
 import murabahaAgreement from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
 import Header from '../Header/Header';
+import DropDownOption from '../dropdown.json'
+
 const { TabPane } = Tabs;
+
 
 class BorrowerDashboard extends Component {
     state = {
-        isModalOpen: false,
+        isApplicationModal: false,
         currentObj: {},
         isRecordedTrue: false,
-        isPurchaseModalOpen: false
+        isGoodsModal: false,
+        isMurabahaModal:false
     }
 
     callback = (key) => {
@@ -35,7 +39,7 @@ class BorrowerDashboard extends Component {
         return o;
     }
 
-    // handleAccept = (referenceId) => {
+     handleAccept = (referenceId) => {}
     //     console.log("REFERENCE ID", referenceId)
     //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
     //         console.log(response)
@@ -45,34 +49,39 @@ class BorrowerDashboard extends Component {
     // }
 
     render() {
-        const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal } = this.state
+        console.log("CURRENT OBJ", currentObj)
         return (
             <React.Fragment>
                 <Header />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
-                        <TabPane tab="Murabaha Applications" key="1">
+                        <TabPane tab="applications" key="1">
                             <div>
-                                <h2><b>Murabaha Applications</b></h2>
+                                <h2><b>Applications</b></h2>
                                 <div className="flexer">
                                     <table className="rwd-table">
                                         <thead  >
                                             <tr >
-                                                <td>Date</td>
+                                            <td>Date</td>
                                                 <td>Reference No.</td>
+                                                
                                                 <td>Applicant</td>
                                                 <td>Amount</td>
+                                                <td>Tenor</td>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Response && murabahaApplication.map((item, i) => (
+                                            {applications && applications.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.date} </td>
                                                     <td>{item.state.data.referenceId}</td>
                                                     <td>{this.org(item.state.data.applicant)}</td>
                                                     <td>{item.state.data.amount}</td>
-                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isModalOpen: true })} >View</button></td>
+                                                    <td>{item.state.data.tenor}</td>
+
+                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isApplicationModal: true })} >View</button></td>
 
                                                 </tr>
                                             ))}
@@ -91,27 +100,29 @@ class BorrowerDashboard extends Component {
                                     <h2><b>Goods</b></h2>
                                     <table className="rwd-table">
                                         <thead  >
-                                            <tr >
-                                            <td>Reference</td>
-                                            <td>Client</td> 
-                                            <td>Asset</td>
-                                             <td>Vendor</td>
-                                                
-                                                
+                                        <tr >
+                                                <td>Reference</td>
+                                                <td>Asset</td>
+                                                <td>Quantity</td>
+                                                <td>Vendor</td>
+
+
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {Response && Response.map((item, i) => (
+                                        {GoodsResponse && GoodsResponse.map((item, i) => (
                                                 <tr>
-                                                     <td>{item.state.data.internalReference}</td>
-                                                     <td>{this.org(item.state.data.client)}</td>
+                                                    <td>{item.state.data.internalReference}</td>
                                                     <td>{item.state.data.asset} </td>
-                                                     <td>{this.org(item.state.data.seller)}</td>
-                                                   
-                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isPurchaseModalOpen: true })} >View</button></td>
+                                                    <td>{item.state.data.quantity}</td>
+                                                    
+                                                    <td>{this.org(item.state.data.seller)}</td>
+
+                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isGoodsModal: true })} >View</button></td>
 
                                                 </tr>
                                             ))}
+
 
                                         </tbody>
                                     </table>
@@ -119,7 +130,7 @@ class BorrowerDashboard extends Component {
                             }
                         </TabPane>}
                         <TabPane tab="Murabaha Agreements" key="3">
-                        <div>
+                            <div>
                                 <h2><b>Murabaha Agreements</b></h2>
                                 <div className="flexer">
                                     <table className="rwd-table">
@@ -132,13 +143,13 @@ class BorrowerDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Response && murabahaAgreement.map((item, i) => (
+                                            {murabahaAgreement && murabahaAgreement.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.ageementDate} </td>
                                                     <td>{item.state.data.internalReference}</td>
                                                     <td>{this.org(item.state.data.borrower)}</td>
                                                     <td>{item.state.data.term}</td>
-                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isModalOpen: true })} >View</button></td>
+                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isMurabahaModal: true })} >View</button></td>
 
                                                 </tr>
                                             ))}
@@ -161,61 +172,12 @@ class BorrowerDashboard extends Component {
                 </div> */}
 
                 {
-                    isPurchaseModalOpen &&
+                    isGoodsModal &&//Goods Modal
                     <Modal
                         size="xl"
-                        show={isPurchaseModalOpen}
+                        show={isGoodsModal}
                         centered
-                        onHide={() => this.setState({ isPurchaseModalOpen: false })}
-                        aria-labelledby="example-modal-sizes-title-lg"
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title id="example-modal-sizes-title-lg">
-                                Purchase Order
-                        </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <div className="flexer">
-                                <table className="rwd-table">
-                                    <thead  >
-                                        <tr >
-                                            <td>Date</td>
-                                            <td>Bank</td>
-                                            <td>Client</td>
-                                            <td>ReferenceID</td>
-                                            <td>Description</td>
-                                            <td>PerformaID</td>
-                                            <td></td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{currentObj.state.data.date} </td>
-                                            <td>{currentObj.state.data.bank}</td>
-                                            <td>{currentObj.state.data.client}</td>
-                                            <td>{currentObj.state.data.referenceId}</td>
-                                            <td>{currentObj.state.data.description}</td>
-                                            <td>{currentObj.state.data.proformaId}</td>
-                                            <td><button className='btn-murhaba' onClick={() => this.handleAccept(currentObj.state.data.referenceId)} >Accept PO</button></td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </Modal.Body>
-                    </Modal>
-
-                }
-
-                {
-                    isModalOpen &&
-                    <Modal
-                        size="lg"
-                        show={isModalOpen}
-                        centered
-                        onHide={() => this.setState({ isModalOpen: false })}
+                        onHide={() => this.setState({ isGoodsModal: false })}
                         aria-labelledby="example-modal-sizes-title-lg"
                     >
                         <Modal.Header closeButton>
@@ -226,14 +188,64 @@ class BorrowerDashboard extends Component {
                         <Modal.Body>
                             <div className="flexer">
                                 <table className="rwd-table">
-                                <tr> <td> Reference</td><td>{currentObj.state.data.internalReference}</td></tr>
-                                <tr ><td>Assets</td><td>{currentObj.state.data.asset} </td></tr>
-                                            <tr >   <td>Owner</td> <td>{currentObj.state.data.assetOwner}</td></tr>
-                                            <tr >  <td>Client</td><td>{currentObj.state.data.client}</td></tr>
+                                <tr> <th> Reference</th><td>{currentObj.state.data.internalReference}</td></tr>
+                                <tr ><th>Asset</th><td>{currentObj.state.data.asset} </td></tr>
+                                            <tr >   <th>Quantity</th> <td>{currentObj.state.data.quantity}</td></tr>
+                                            <tr >  <th>Vendor</th><td>{this.org(currentObj.state.data.seller)}</td></tr>
                                            
-                                            <tr >  <td>Takaful</td>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
+                                            <tr >  <th>Takaful</th>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
                                             <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
                                         
+                                        
+                             
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                          
+
+
+                                </table>
+                            </div>
+
+                        </Modal.Body>
+                    </Modal>
+
+                }
+
+                {
+                    isApplicationModal &&
+                    <Modal
+                        size="lg"
+                        show={isApplicationModal}
+                        centered
+                        onHide={() => this.setState({ isApplicationModal: false })}
+                        aria-labelledby="example-modal-sizes-title-lg"
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title id="example-modal-sizes-title-lg">
+                                Application
+                        </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="flexer">
+                                <table className="rwd-table">
+                                    <tr> <th> Reference</th><td>{currentObj.state.data.referenceId}</td></tr>
+                                    <tr> <th> Date</th><td>{currentObj.state.data.date}</td></tr>
+                                    <tr><th>Applicant</th><td>{this.org(currentObj.state.data.applicant)}</td></tr>
+                                    <tr><th>Beneficiary</th><td>{this.org(currentObj.state.data.beneficiary)}</td></tr>
+
+                                    <tr><th>Description</th><td>{currentObj.state.data.description}</td></tr>
+
+                                    <tr><th>Amount</th><td>{currentObj.state.data.amount} </td></tr>
+                                    <tr><th>Tenor</th><td>{currentObj.state.data.tenor} </td></tr>
+
+                                    <tr><td><input name="term" className="goods-amount" placeholder="Terms" type="number" /></td>                                        <td>
+                                            <button className='btn-murhaba' >Issue Purchase Order</button>
+                                        </td>
+                                    </tr>
                                     {/* <thead  >
                                         <tr >
                                             <td>Assets</td>
@@ -254,7 +266,63 @@ class BorrowerDashboard extends Component {
                                             <td><button className='btn-murhaba' >Redeem</button></td>
                                         </tr>
                                     </tbody> */}
-                                    </table>
+                                </table>
+                            </div>
+
+                        </Modal.Body>
+                    </Modal>
+
+                }
+                 {
+                    isMurabahaModal &&
+                    <Modal
+                        size="lg"
+                        show={isMurabahaModal}
+                        centered
+                        onHide={() => this.setState({ isMurabahaModal: false })}
+                        aria-labelledby="example-modal-sizes-title-lg"
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title id="example-modal-sizes-title-lg">
+                                Murabaha Agreement
+                        </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="flexer">
+                                <table className="rwd-table">
+                                    <tr> <th> Reference</th><td>{currentObj.state.data.internalReference}</td></tr>
+                                    <tr> <th> Date</th><td>{currentObj.state.data.ageementDate}</td></tr>
+
+                                    <tr><th>Bank</th> <td>{this.org(currentObj.state.data.bank)}</td></tr>
+                                    <tr><th>Borrower</th><td>{this.org(currentObj.state.data.borrower)}</td></tr>
+
+                                    <tr><th>Assets</th><td>{currentObj.state.data.goods.asset} </td></tr>
+                                    <tr><th>CostPrice</th><td>{currentObj.state.data.costPrice} </td></tr>
+                                    <tr><th>Selling Price</th><td>{currentObj.state.data.sellingprice} </td></tr>
+                                    <tr><th>Term</th><td>{currentObj.state.data.term} </td></tr>
+                                    <tr >  <td></td><td><button className='btn-murhaba' >Accept</button></td></tr>
+                                    
+                                    {/* <thead  >
+                                        <tr >
+                                            <td>Assets</td>
+                                            <td>Owner</td>
+                                            <td>Client</td>
+                                            <td>Reference</td>
+                                            <td>Takaful</td>
+                                            {currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{currentObj.state.data.asset} </td>
+                                            <td>{currentObj.state.data.assetOwner}</td>
+                                            <td>{currentObj.state.data.client}</td>
+                                            <td>{currentObj.state.data.internalReference}</td>
+                                            {currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}
+                                            <td><button className='btn-murhaba' >Accept</button></td>
+                                        </tr>
+                                    </tbody> */}
+                                </table>
                             </div>
 
                         </Modal.Body>

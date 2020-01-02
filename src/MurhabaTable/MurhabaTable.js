@@ -92,9 +92,10 @@ class MurhabaTable extends Component {
                                         <thead  >
                                             <tr >
                                                 <td>Date</td>
+                                                <td>ReferenceID</td>
                                                 <td>Bank</td>
                                                 <td>Client</td>
-                                                <td>ReferenceID</td>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -102,9 +103,10 @@ class MurhabaTable extends Component {
 
                                                 <tr>
                                                     <td>{item.state.data.date} </td>
+                                                    <td>{item.state.data.referenceId}</td>
                                                     <td>{this.org(item.state.data.bank)}</td>
                                                     <td>{this.org(item.state.data.client)}</td>
-                                                    <td>{item.state.data.referenceId}</td>
+                                                   
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isPurchaseModalOpen: true })} >View</button></td>
 
                                                 </tr>
@@ -141,7 +143,18 @@ class MurhabaTable extends Component {
                         <Modal.Body>
                             <div className="flexer">
                                 <table className="rwd-table">
-                                    <thead  >
+
+                                <tr> <th> Date</th><td>{currentObj.state.data.date}</td></tr>
+                                <tr ><th>Reference</th><td>{currentObj.state.data.referenceId} </td></tr>
+                                            <tr >   <th>Asset</th> <td>{currentObj.state.data.description}</td></tr>
+                                            <tr >  <th>Bank</th><td>{this.org(currentObj.state.data.bank)}</td></tr>
+                                            <tr >  <th>Client</th><td>{this.org(currentObj.state.data.client)}</td></tr>
+                                            <tr >  <th>Proforma</th><td>{currentObj.state.data.proformaId}</td></tr>
+
+                                            <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
+                                        
+
+                                    {/* <thead  >
                                         <tr >
                                             <td>Date</td>
                                             <td>Bank</td>
@@ -164,7 +177,7 @@ class MurhabaTable extends Component {
 
 
                                         </tr>
-                                    </tbody>
+                                    </tbody> */}
                                 </table>
                             </div>
 
@@ -190,18 +203,18 @@ class MurhabaTable extends Component {
                         <Modal.Body>
                             <div className="flexer">
                                 <table className="rwd-table">
-                                <tr> <td> Reference</td><td>{currentObj.state.data.internalReference}</td></tr>
-                                <tr ><td>Assets</td><td>{currentObj.state.data.asset} </td></tr>
-                                            <tr >   <td></td> <td>{currentObj.state.data.seller}</td></tr>
-                                            <tr >  <td>Vendor</td><td>{this.org(currentObj.state.data.seller)}</td></tr>
+                                <tr> <th> Reference</th><td>{currentObj.state.data.internalReference}</td></tr>
+                                <tr ><th>Assets</th><td>{currentObj.state.data.asset} </td></tr>
+                                            <tr >   <th>Quantity</th> <td>{currentObj.state.data.quantity}</td></tr>
+                                            <tr >  <th>Vendor</th><td>{this.org(currentObj.state.data.seller)}</td></tr>
                                            
-                                            <tr >  <td>Takaful</td>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
+                                            <tr >  <th>Takaful</th>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
                                             <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
                                         
                                     {/* <thead  >
                                         <tr >
                                             <td>Assets</td>
-                                            <td>Owner</td>
+                                            <td>Quantity</td>
                                             <td>Client</td>
                                             <td>Reference</td>
                                             <td>Takaful</td>
@@ -211,8 +224,8 @@ class MurhabaTable extends Component {
                                     <tbody>
                                         <tr>
                                             <td>{currentObj.state.data.asset} </td>
-                                            <td>{currentObj.state.data.assetOwner}</td>
-                                            <td>{currentObj.state.data.client}</td>
+                                            <td>{currentObj.state.data.quantity}</td>
+                                            <td>{currentObj.state.data.seller}</td>
                                             <td>{currentObj.state.data.internalReference}</td>
                                             {currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}
                                             <td><button className='btn-murhaba' >Redeem</button></td>
