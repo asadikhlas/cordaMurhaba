@@ -13,7 +13,7 @@ import DropDownOption from '../dropdown.json'
 const { TabPane } = Tabs;
 
 
-class BorrowerDashboard extends Component {
+class BankDashboard extends Component {
     state = {
         isApplicationModal: false,
         currentObj: {},
@@ -335,4 +335,4 @@ class BorrowerDashboard extends Component {
     }
 }
 
-export default BorrowerDashboard
+export default BankDashboard
