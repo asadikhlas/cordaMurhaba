@@ -1,8 +1,49 @@
 import React, { Component } from 'react'
-import './IssuePerforma.css'
+import './termSheet.css'
 import DropDownOption from '../dropdown.json'
 import Header from '../Header/Header'
-class IssuePerforma extends Component {
+import axios from 'axios'
+import queryString from 'query-string'
+
+class termSheet extends Component {
+    state = {
+        referenceId: "",
+        limit: "",
+        rate: "",
+        tenor: "",
+        peers: ""
+    }
+
+    handleSubmit = (event) => {
+        const { limit, rate, tenor,peers , referenceId } = this.state 
+        event.preventDefault()
+
+        const parsed = queryString.parse(window.location.search);
+
+        parsed.referenceId = referenceId;
+        parsed.limit = limit;
+        parsed.rate = rate
+        parsed.tenor = tenor
+        parsed.borrowerId = peers
+
+        const stringified = queryString.stringify(parsed);
+
+        console.log(stringified)
+
+        const APIURL = "http://localhost:10052/api/murabaha/issue-TermSheet"
+        axios.get(`${APIURL}?${stringified}`).then(res => {
+            console.log("RESPONSE FROM Term SHEET",res.data)
+        }).catch(err => {
+            console.log(err.message)
+        })
+
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
     org(party) {
 
         var i = party.indexOf('O');
@@ -11,26 +52,27 @@ class IssuePerforma extends Component {
         return o;
     }
     render() {
+        console.log("STATE", this.state)
+        const { limit, rate, tenor,peers , referenceId } = this.state 
         return (
             <div>
             <Header />
                 <div>
-                    <form >
+                    <form onSubmit={this.handleSubmit}>
                         <div className="login flexer" style={{ flexDirection: 'column' }} >
                             <h2>Issue Term Sheet</h2>
 
-                            <input name="ReferenceID" placeholder="TermSheet Reference" type="text" />
+                            <input name="referenceId" placeholder="TermSheet Reference" value={referenceId} onChange={this.handleChange} type="text" />
                             
-                            <input id="limit" name="limit" placeholder="Limit" type="text" />
-                            <input id="rate" name="rate" placeholder="Profit Rate" type="text" />
+                            <input id="limit" name="limit" placeholder="Limit" value={limit} onChange={this.handleChange} type="text" />
+                            <input id="rate" name="rate" placeholder="Profit Rate" value={rate} onChange={this.handleChange} type="text" />
 
-                            <input name="amount" placeholder="Tenor" type="text" />
+                            <input name="tenor" placeholder="Tenor" value={tenor} onChange={this.handleChange} type="text" />
                             <br />
 
-                            <select>
+                            <select name="peers" value={peers} onChange={this.handleChange}>
                                 {DropDownOption && DropDownOption.peers.map((item, index) => (
                                     <React.Fragment>
-                                        {console.log(item)}
                                         <option value={item} >{this.org(item)}</option>
                                     </React.Fragment>
 
@@ -49,4 +91,4 @@ class IssuePerforma extends Component {
     }
 }
 
-export default IssuePerforma;
+export default termSheet

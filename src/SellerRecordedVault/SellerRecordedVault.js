@@ -113,7 +113,7 @@ class BorrowerDashboard extends Component {
                                             {Response && Response.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.internalReference}</td>
-                                                    <td>{this.org(item.state.data.client)}</td>
+                                                    <td>{this.org(item.state.data.seller)}</td>
                                                     <td>{item.state.data.asset} </td>
                                                     <td>{this.org(item.state.data.seller)}</td>
 
