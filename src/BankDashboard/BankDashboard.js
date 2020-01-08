@@ -9,6 +9,8 @@ import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
 import Header from '../Header/Header';
 import DropDownOption from '../dropdown.json'
+import axios from 'axios'
+import queryString from 'query-string'
 
 const { TabPane } = Tabs;
 
@@ -39,14 +41,14 @@ class BankDashboard extends Component {
         return o;
     }
 
-     handleAccept = (referenceId) => {}
-    //     console.log("REFERENCE ID", referenceId)
+     handlePurchaseOrder = (referenceId) => {
+        console.log("Purchase Order ID", referenceId)
     //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
     //         console.log(response)
     //     }).catch(err => {
     //         console.log(err)
     //     })
-    // }
+ }
 
     render() {
         const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal } = this.state
@@ -57,7 +59,7 @@ class BankDashboard extends Component {
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
-                        <TabPane tab="applications" key="1">
+                    {Boolean(applications.length) &&  <TabPane tab="applications" key="1">
                             <div>
                                 <h2><b>Applications</b></h2>
                                 <div className="flexer">
@@ -93,9 +95,9 @@ class BankDashboard extends Component {
 
                                 </div>
                             </div>
-                        </TabPane>
-                        {purchaseOrder && <TabPane tab="Goods" key="2">
-                            {purchaseOrder &&
+                        </TabPane>}
+                        {Boolean(GoodsResponse.length) && <TabPane tab="Goods" key="2">
+                            {Boolean(GoodsResponse.length) &&
                                 <div className="flexer" style={{ flexDirection: 'column' }}>
                                     <h2><b>Goods</b></h2>
                                     <table className="rwd-table">
@@ -110,7 +112,7 @@ class BankDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {GoodsResponse && GoodsResponse.map((item, i) => (
+                                        {Boolean(GoodsResponse.length) && GoodsResponse.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.internalReference}</td>
                                                     <td>{item.state.data.asset} </td>
@@ -243,7 +245,7 @@ class BankDashboard extends Component {
                                     <tr><th>Tenor</th><td>{currentObj.state.data.tenor} </td></tr>
 
                                     <tr><td><input name="term" className="goods-amount" placeholder="Terms" type="number" /></td>                                        <td>
-                                            <button className='btn-murhaba' >Issue Purchase Order</button>
+                                            <button className='btn-murhaba' onClick={() => this.handlePurchaseOrder(currentObj.state.data.referenceId)} >Issue Purchase Order</button>
                                         </td>
                                     </tr>
                                     {/* <thead  >

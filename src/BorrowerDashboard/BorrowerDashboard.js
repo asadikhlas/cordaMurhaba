@@ -49,7 +49,20 @@ class BorrowerDashboard extends Component {
     }
 
     handleApplication = (referenceId) => {
-        console.log("REFERENCE ID", referenceId)
+        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, terms, peers } = this.state
+
+        console.log("PROFORMA ID", referenceId)
+
+        const parsed = queryString.parse(window.location.search);
+
+        parsed.bank=peers;
+        parsed.proforma=referenceId;
+        parsed.term=terms;
+        
+        const stringified = queryString.stringify(parsed);
+        console.log(stringified)
+
+
      }
     //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
     //         console.log(response)
@@ -238,7 +251,8 @@ class BorrowerDashboard extends Component {
                         <Modal.Body>
                             <div className="flexer">
                                 <table className="rwd-table">
-                                    <tr> <th> Reference</th><td>{currentObj.state.data.goods.internalReference}</td></tr>
+                                    <tr> <th> Reference</th><td>{currentObj.state.data.proformaId}</td></tr>
+                                    <tr><th>Date</th><td>{currentObj.state.data.date} </td></tr>
                                     <tr><th>Assets</th><td>{currentObj.state.data.goods.asset} </td></tr>
                                     <tr><th>Vendor</th> <td>{this.org(currentObj.state.data.goods.seller)}</td></tr>
                                     <tr><th>Client</th><td>{this.org(currentObj.state.data.buyer)}</td></tr>
@@ -254,7 +268,7 @@ class BorrowerDashboard extends Component {
                                         </select>
                                     </td>
                                         <td>
-                                            <button className='btn-murhaba' >Request Murabaha</button>
+                                            <button className='btn-murhaba'  onClick={() => this.handleApplication(currentObj.state.data.proformaId)} >Request Murabaha</button>
                                         </td>
                                         {/* <td>
                                         </td> */}
