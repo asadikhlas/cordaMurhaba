@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import './MurhabaTable.css';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
-import Response from '../response.json';
+import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
 import purchaseOrderPerforma from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
 import Header from '../Header/Header';
+import axios from 'axios'
+import queryString from 'query-string'
 const { TabPane } = Tabs;
 
 class MurhabaTable extends Component {
@@ -27,21 +29,29 @@ class MurhabaTable extends Component {
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
 
     org(party) {
-        //O=Seller, L=Lahorek, C=PK
         var i = party.indexOf('O');
         var i2 = party.indexOf(",");
         var o = party.slice(i + 2, i2);
         return o;
     }
 
-    // handleAccept = (referenceId) => {
-    //     console.log("REFERENCE ID", referenceId)
+    handleAccept = (referenceId) => {
+         console.log("PURCHASE ORDER REFERENCE ID", referenceId)
+
+         const parsed = queryString.parse(window.location.search);
+
+               parsed.purchaseOrderId=referenceId;
+      
+        const API="http://localhost:10050/api/murabaha/goods-transfer"
+        
+        const stringified = queryString.stringify(parsed);
+        console.log("API",API+"?"+stringified);
     //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
     //         console.log(response)
     //     }).catch(err => {
     //         console.log(err)
     //     })
-    // }
+     }
 
     render() {
         const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
@@ -65,7 +75,7 @@ class MurhabaTable extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Response && Response.map((item, i) => (
+                                            {Boolean(GoodsResponse.length) && GoodsResponse.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.asset} </td>
                                                     <td>{this.org(item.state.data.assetOwner)}</td>
@@ -84,8 +94,8 @@ class MurhabaTable extends Component {
                                 </div>
                             </div>
                         </TabPane>
-                        {purchaseOrderPerforma && <TabPane tab="Purchase Orders" key="2">
-                            {purchaseOrderPerforma &&
+                        {Boolean(purchaseOrderPerforma.length) && <TabPane tab="Purchase Orders" key="2">
+                            {Boolean(purchaseOrderPerforma.length) &&
                                 <div className="flexer" style={{ flexDirection: 'column' }}>
                                     <h2><b>Purchase Orders</b></h2>
                                     <table className="rwd-table">
@@ -99,7 +109,7 @@ class MurhabaTable extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {purchaseOrderPerforma && purchaseOrderPerforma.map((item, i) => (
+                                            {Boolean(purchaseOrderPerforma.length) && purchaseOrderPerforma.map((item, i) => (
 
                                                 <tr>
                                                     <td>{item.state.data.date} </td>
@@ -151,7 +161,7 @@ class MurhabaTable extends Component {
                                             <tr >  <th>Client</th><td>{this.org(currentObj.state.data.client)}</td></tr>
                                             <tr >  <th>Proforma</th><td>{currentObj.state.data.proformaId}</td></tr>
 
-                                            <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
+                                            <tr >  <td></td><td><button className='btn-murhaba' onClick={() => this.handleAccept(currentObj.state.data.referenceId)}  >Accept PO</button></td></tr>
                                         
 
                                     {/* <thead  >

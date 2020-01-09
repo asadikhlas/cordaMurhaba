@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
-import Response from '../response.json';
+import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
 import murabahaApplication from '../MurabahaApplicationState.json'
 import murabahaAgreement from '../Murabaha.json'
@@ -66,7 +66,7 @@ class BorrowerDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Response && murabahaApplication.map((item, i) => (
+                                            {GoodsResponse && murabahaApplication.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.date} </td>
                                                     <td>{item.state.data.referenceId}</td>
@@ -85,29 +85,29 @@ class BorrowerDashboard extends Component {
                                 </div>
                             </div>
                         </TabPane>
-                        {purchaseOrder && <TabPane tab="Goods" key="2">
-                            {purchaseOrder &&
+                        {Boolean(GoodsResponse.length) && <TabPane tab="Goods" key="2">
+                        {Boolean(GoodsResponse.length) &&
                                 <div className="flexer" style={{ flexDirection: 'column' }}>
                                     <h2><b>Goods</b></h2>
                                     <table className="rwd-table">
                                         <thead  >
                                             <tr >
-                                            <td>Reference</td>
-                                            <td>Client</td> 
-                                            <td>Asset</td>
-                                             <td>Vendor</td>
-                                                
-                                                
+                                                <td>Reference</td>
+                                                <td>Asset</td>
+                                                <td>Quantity</td>
+                                                <td>Vendor</td>
+
+
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {Response && Response.map((item, i) => (
+                                            {GoodsResponse && GoodsResponse.map((item, i) => (
                                                 <tr>
-                                                     <td>{item.state.data.internalReference}</td>
-                                                     <td>{this.org(item.state.data.client)}</td>
-                                                    <td>{item.state.data.asset} </td>
-                                                     <td>{this.org(item.state.data.seller)}</td>
-                                                   
+                                                    <td>{item.state.data.internalReference}</td>
+                                                    <td>{item.state.data.asset}</td>
+                                                    <td>{item.state.data.quantity} </td>
+                                                    <td>{this.org(item.state.data.seller)}</td>
+
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isPurchaseModalOpen: true })} >View</button></td>
 
                                                 </tr>
@@ -119,7 +119,7 @@ class BorrowerDashboard extends Component {
                             }
                         </TabPane>}
                         <TabPane tab="Murabaha Agreements" key="3">
-                        <div>
+                            <div>
                                 <h2><b>Murabaha Agreements</b></h2>
                                 <div className="flexer">
                                     <table className="rwd-table">
@@ -132,7 +132,7 @@ class BorrowerDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Response && murabahaAgreement.map((item, i) => (
+                                            {GoodsResponse && murabahaAgreement.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.ageementDate} </td>
                                                     <td>{item.state.data.internalReference}</td>
@@ -226,14 +226,14 @@ class BorrowerDashboard extends Component {
                         <Modal.Body>
                             <div className="flexer">
                                 <table className="rwd-table">
-                                <tr> <td> Reference</td><td>{currentObj.state.data.internalReference}</td></tr>
-                                <tr ><td>Assets</td><td>{currentObj.state.data.asset} </td></tr>
-                                            <tr >   <td>Owner</td> <td>{currentObj.state.data.assetOwner}</td></tr>
-                                            <tr >  <td>Client</td><td>{currentObj.state.data.client}</td></tr>
-                                           
-                                            <tr >  <td>Takaful</td>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
-                                            <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
-                                        
+                                    <tr> <td> Reference</td><td>{currentObj.state.data.internalReference}</td></tr>
+                                    <tr ><td>Assets</td><td>{currentObj.state.data.asset} </td></tr>
+                                    <tr >   <td>Owner</td> <td>{currentObj.state.data.assetOwner}</td></tr>
+                                    <tr >  <td>Client</td><td>{currentObj.state.data.client}</td></tr>
+
+                                    <tr >  <td>Takaful</td>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
+                                    <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
+
                                     {/* <thead  >
                                         <tr >
                                             <td>Assets</td>
@@ -254,7 +254,7 @@ class BorrowerDashboard extends Component {
                                             <td><button className='btn-murhaba' >Redeem</button></td>
                                         </tr>
                                     </tbody> */}
-                                    </table>
+                                </table>
                             </div>
 
                         </Modal.Body>

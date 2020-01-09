@@ -21,7 +21,7 @@ class BorrowerDashboard extends Component {
         isRecordedTrue: false,
         isGoodsModal: false,
         isMurabahaModal: false,
-        terms:"",
+        term:"",
         peers:"",
     }
 
@@ -49,7 +49,7 @@ class BorrowerDashboard extends Component {
     }
 
     handleApplication = (referenceId) => {
-        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, terms, peers } = this.state
+        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers } = this.state
 
         console.log("PROFORMA ID", referenceId)
 
@@ -57,7 +57,7 @@ class BorrowerDashboard extends Component {
 
         parsed.bank=peers;
         parsed.proforma=referenceId;
-        parsed.term=terms;
+        parsed.term=term;
         
         const stringified = queryString.stringify(parsed);
         console.log(stringified)
@@ -72,7 +72,7 @@ class BorrowerDashboard extends Component {
     // }
 
     render() {
-        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, terms, peers } = this.state
+        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers } = this.state
         console.log("STATE IN BORROWER DASHBOARD",this.state)
         console.log("PURCHASE ORDER DATA", purchaseOrder)
         return (
@@ -260,7 +260,7 @@ class BorrowerDashboard extends Component {
 
                                     <tr><th>Amount</th><td>{currentObj.state.data.amount} </td></tr>
 
-                                    <tr><td><input name="terms" className="goods-amount" placeholder="Terms" value={terms} onChange={this.handleChange} type="number" />
+                                    <tr><td><input name="term" className="goods-amount" placeholder="Term" value={term} onChange={this.handleChange} type="number" />
                                         <select name="peers" value={peers} onChange={this.handleChange} className="option">
                                             {DropDownOption && DropDownOption.peers.map((item, index) => (
                                                 <option value={item} >{this.org(item)}</option>

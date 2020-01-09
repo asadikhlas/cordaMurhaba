@@ -93,8 +93,8 @@ class BorrowerDashboard extends Component {
                                         <thead  >
                                             <tr >
                                             <td>Reference</td>
-                                            <td>Client</td> 
                                             <td>Asset</td>
+                                            <td>Quantity</td> 
                                              <td>Vendor</td>
                                                 
                                                 
@@ -104,8 +104,8 @@ class BorrowerDashboard extends Component {
                                         {Response && Response.map((item, i) => (
                                                 <tr>
                                                      <td>{item.state.data.internalReference}</td>
-                                                     <td>{this.org(item.state.data.client)}</td>
-                                                    <td>{item.state.data.asset} </td>
+                                                     <td>{item.state.data.asset}</td>
+                                                    <td>{item.state.data.quantity} </td>
                                                      <td>{this.org(item.state.data.seller)}</td>
                                                    
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isPurchaseModalOpen: true })} >View</button></td>

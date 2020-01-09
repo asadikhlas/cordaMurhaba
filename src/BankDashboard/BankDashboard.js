@@ -21,9 +21,16 @@ class BankDashboard extends Component {
         currentObj: {},
         isRecordedTrue: false,
         isGoodsModal: false,
-        isMurabahaModal:false
+        isMurabahaModal:false,
+        term:"",
+        peers:"",
     }
 
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
     callback = (key) => {
         console.log(key);
     }
@@ -42,7 +49,20 @@ class BankDashboard extends Component {
     }
 
      handlePurchaseOrder = (referenceId) => {
-        console.log("Purchase Order ID", referenceId)
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term } = this.state
+
+        console.log("Application ID", referenceId)
+        
+        const parsed = queryString.parse(window.location.search);
+
+       
+        parsed.applicationId=referenceId;
+        parsed.term=term;
+
+        const API="http://localhost:10052/api/murabaha/issue-purchaseorder"
+        
+        const stringified = queryString.stringify(parsed);
+        console.log("API",API,stringified);
     //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
     //         console.log(response)
     //     }).catch(err => {
@@ -51,7 +71,7 @@ class BankDashboard extends Component {
  }
 
     render() {
-        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal } = this.state
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term } = this.state
         console.log("CURRENT OBJ", currentObj)
         return (
             <React.Fragment>
@@ -244,7 +264,7 @@ class BankDashboard extends Component {
                                     <tr><th>Amount</th><td>{currentObj.state.data.amount} </td></tr>
                                     <tr><th>Tenor</th><td>{currentObj.state.data.tenor} </td></tr>
 
-                                    <tr><td><input name="term" className="goods-amount" placeholder="Terms" type="number" /></td>                                        <td>
+                                    <tr><td><input name="term" className="goods-amount" placeholder="Term"  value={term} onChange={this.handleChange} type="number" /></td>                                        <td>
                                             <button className='btn-murhaba' onClick={() => this.handlePurchaseOrder(currentObj.state.data.referenceId)} >Issue Purchase Order</button>
                                         </td>
                                     </tr>
