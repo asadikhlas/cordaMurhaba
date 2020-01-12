@@ -62,6 +62,14 @@ class BorrowerDashboard extends Component {
         const stringified = queryString.stringify(parsed);
         console.log(stringified)
 
+        const APIURL = "http://localhost:10051/api/murabaha/murabaha-application"
+        axios.get(`${APIURL}?${stringified}`).then(res => {
+            console.log("RESPONSE FROM ISSUE PERFORMA",res)
+        }).catch(err => {
+            console.log(err.message)
+        })
+
+
 
      }
     //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {

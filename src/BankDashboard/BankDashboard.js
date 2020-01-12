@@ -35,7 +35,23 @@ class BankDashboard extends Component {
         console.log(key);
     }
 
+    handleOffer = (referenceId) => {// for offering theMuraba Agreement
+        console.log("MURABAHA REFERENCE ID", referenceId)
 
+        const parsed = queryString.parse(window.location.search);
+
+              parsed.murabahaId=referenceId;
+     
+       const API="http://localhost:10050/api/murabaha/goods-transfer"
+       
+       const stringified = queryString.stringify(parsed);
+       console.log("API",API+"?"+stringified);
+   //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
+   //         console.log(response)
+   //     }).catch(err => {
+   //         console.log(err)
+   //     })
+    }
     isRecordedTrue = () => this.setState({ isRecordedTrue: true })
 
     isOwnedVault = () => this.setState({ isRecordedTrue: false })
@@ -59,10 +75,14 @@ class BankDashboard extends Component {
         parsed.applicationId=referenceId;
         parsed.term=term;
 
-        const API="http://localhost:10052/api/murabaha/issue-purchaseorder"
         
         const stringified = queryString.stringify(parsed);
-        console.log("API",API,stringified);
+        const APIURL = "http://localhost:10052/api/murabaha/issue-purchaseorder"
+        axios.get(`${APIURL}?${stringified}`).then(res => {
+            console.log("RESPONSE FROM ISSUE PERFORMA",res)
+        }).catch(err => {
+            console.log(err.message)
+        })
     //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
     //         console.log(response)
     //     }).catch(err => {
@@ -322,7 +342,7 @@ class BankDashboard extends Component {
                                     <tr><th>CostPrice</th><td>{currentObj.state.data.costPrice} </td></tr>
                                     <tr><th>Selling Price</th><td>{currentObj.state.data.sellingprice} </td></tr>
                                     <tr><th>Term</th><td>{currentObj.state.data.term} </td></tr>
-                                    <tr >  <td></td><td><button className='btn-murhaba' >Accept</button></td></tr>
+                                    <tr >  <td></td><td><button className='btn-murhaba'onClick={() => this.handleOffer(currentObj.state.data.internalReference)} >Offer</button></td></tr>
                                     
                                     {/* <thead  >
                                         <tr >

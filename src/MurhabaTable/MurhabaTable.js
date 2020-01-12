@@ -35,7 +35,7 @@ class MurhabaTable extends Component {
         return o;
     }
 
-    handleAccept = (referenceId) => {
+    handleAccept = (referenceId) => {// for accepting the Purchase Order and transfer goods
          console.log("PURCHASE ORDER REFERENCE ID", referenceId)
 
          const parsed = queryString.parse(window.location.search);

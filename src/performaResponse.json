@@ -5,7 +5,7 @@
       "seller" : "O=Seller, L=Lahorek, C=PK",
       "buyer" : "O=Borrower, L=Karachi, C=PK",
       "date" : "MM-DD-YY",
-      "proformaId" : "PR-1",
+      "proformaId" : "P-1",
       "description" : "Cotton",
       "goods" : {
         "seller" : "O=Seller, L=Lahorek, C=PK",
