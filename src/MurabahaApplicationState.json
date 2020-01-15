@@ -5,7 +5,7 @@
       "date" : "MM-DD-YY",
       "applicant" : "O=Borrower, L=Karachi, C=PK",
       "issuingBank" : "O=Bank, L=Karachi, C=PK",
-      "referenceId" : "MAPP-P-1",
+      "referenceId" : "MAPP-PR-1",
       "beneficiary" : "O=Seller, L=Lahorek, C=PK",
       "advisingBank" : "O=Seller, L=Lahorek, C=PK",
       "description" : "Cotton",

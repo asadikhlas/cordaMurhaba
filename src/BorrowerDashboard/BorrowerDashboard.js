@@ -48,6 +48,22 @@ class BorrowerDashboard extends Component {
         return o;
     }
 
+    handleRedeem = (referenceId) => {// for GOODS TO REDEEM
+        console.log("GOODSID", referenceId)
+
+        const parsed = queryString.parse(window.location.search);
+
+              parsed.goodsId=referenceId;
+     
+       
+       const stringified = queryString.stringify(parsed);
+       const APIURL = "http://localhost:10051/api/murabaha/redeem"
+       axios.get(`${APIURL}?${stringified}`).then(res => {
+           console.log("RESPONSE FROM REDEEM",res)
+       }).catch(err => {
+           console.log(err.message)
+       })
+    }
     handleApplication = (referenceId) => {
         const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers } = this.state
 
@@ -221,7 +237,7 @@ class BorrowerDashboard extends Component {
                                     <tr >  <th>Vendor</th><td>{this.org(currentObj.state.data.seller)}</td></tr>
 
                                     <tr >  <th>Takaful</th>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
-                                    <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
+                                    <tr >  <td></td><td><button className='btn-murhaba' onClick={() => this.handleRedeem(currentObj.state.data.internalReference)} >Redeem</button></td></tr>
 
 
 

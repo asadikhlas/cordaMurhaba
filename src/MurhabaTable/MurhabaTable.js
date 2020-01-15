@@ -34,6 +34,23 @@ class MurhabaTable extends Component {
         var o = party.slice(i + 2, i2);
         return o;
     }
+    
+    handleRedeem = (referenceId) => {// for GOODS TO REDEEM
+        console.log("GOODSID", referenceId)
+
+        const parsed = queryString.parse(window.location.search);
+
+              parsed.goodsId=referenceId;
+     
+       
+       const stringified = queryString.stringify(parsed);
+       const APIURL = "http://localhost:10051/api/murabaha/redeem"
+       axios.get(`${APIURL}?${stringified}`).then(res => {
+           console.log("RESPONSE FROM REDEEM",res)
+       }).catch(err => {
+           console.log(err.message)
+       })
+    }
 
     handleAccept = (referenceId) => {// for accepting the Purchase Order and transfer goods
          console.log("PURCHASE ORDER REFERENCE ID", referenceId)
@@ -42,10 +59,14 @@ class MurhabaTable extends Component {
 
                parsed.purchaseOrderId=referenceId;
       
-        const API="http://localhost:10050/api/murabaha/goods-transfer"
         
         const stringified = queryString.stringify(parsed);
-        console.log("API",API+"?"+stringified);
+        const APIURL = "http://localhost:10050/api/murabaha/goods-transfer"
+        axios.get(`${APIURL}?${stringified}`).then(res => {
+            console.log("RESPONSE FROM ISSUE PERFORMA",res)
+        }).catch(err => {
+            console.log(err.message)
+        })
     //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
     //         console.log(response)
     //     }).catch(err => {

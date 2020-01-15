@@ -41,16 +41,17 @@ class BankDashboard extends Component {
         const parsed = queryString.parse(window.location.search);
 
               parsed.murabahaId=referenceId;
+              
      
-       const API="http://localhost:10050/api/murabaha/goods-transfer"
+       const API="http://localhost:10052/api/murabaha/murabaha-offer"
        
        const stringified = queryString.stringify(parsed);
-       console.log("API",API+"?"+stringified);
-   //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
-   //         console.log(response)
-   //     }).catch(err => {
-   //         console.log(err)
-   //     })
+       const APIURL = "http://localhost:10052/api/murabaha/murabaha-offer"
+       axios.get(`${APIURL}?${stringified}`).then(res => {
+           console.log("RESPONSE FROM ISSUE PERFORMA",res)
+       }).catch(err => {
+           console.log(err.message)
+       })
     }
     isRecordedTrue = () => this.setState({ isRecordedTrue: true })
 
@@ -72,7 +73,7 @@ class BankDashboard extends Component {
         const parsed = queryString.parse(window.location.search);
 
        
-        parsed.applicationId=referenceId;
+        parsed.murabahaId=referenceId;
         parsed.term=term;
 
         
