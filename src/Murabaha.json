@@ -4,7 +4,7 @@
       "@class" : "com.example.states.MurabahaState",
       "bank" : "O=Bank, L=Karachi, C=PK",
       "borrower" : "O=Borrower, L=Karachi, C=PK",
-      "internalReference" : "MUR-MAPP-PR-1",
+      "internalReference" : "PO-MAPP-PR-1",
       "ageementDate" : "MM-DD-YY",
       "goods" : {
         "seller" : "O=Seller, L=Lahorek, C=PK",

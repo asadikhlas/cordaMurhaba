@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
 import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
-import proformas from '../performaResponse.json'
+//import proformas from '../performaResponse.json'
 import murabahaAgreement from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
@@ -23,6 +23,7 @@ class BorrowerDashboard extends Component {
         isMurabahaModal: false,
         term:"",
         peers:"",
+        proformas: []
     }
 
     handleChange = (event) => {
@@ -47,7 +48,35 @@ class BorrowerDashboard extends Component {
         var o = party.slice(i + 2, i2);
         return o;
     }
+    componentDidMount(){
 
+        const APIURL = "http://localhost:10051/api/murabaha/my-proformas"
+        axios.get(`${APIURL}`).then(res => {
+            this.setState({proformas:res.data})
+            console.log("RESPONSE FROM MY PROFORMAS API",res)
+        }).catch(err => {
+            console.log(err.message)
+        })
+        
+    
+    }
+
+    handleRedeem = (referenceId) => {// for GOODS TO REDEEM
+        console.log("GOODSID", referenceId)
+
+        const parsed = queryString.parse(window.location.search);
+
+              parsed.goodsId=referenceId;
+     
+       
+       const stringified = queryString.stringify(parsed);
+       const APIURL = "http://localhost:10051/api/murabaha/redeem"
+       axios.get(`${APIURL}?${stringified}`).then(res => {
+           console.log("RESPONSE FROM REDEEM",res)
+       }).catch(err => {
+           console.log(err.message)
+       })
+    }
     handleApplication = (referenceId) => {
         const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers } = this.state
 
@@ -80,7 +109,7 @@ class BorrowerDashboard extends Component {
     // }
 
     render() {
-        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers } = this.state
+        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers,proformas } = this.state
         console.log("STATE IN BORROWER DASHBOARD",this.state)
         console.log("PURCHASE ORDER DATA", purchaseOrder)
         return (
@@ -103,7 +132,7 @@ class BorrowerDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {proformas && proformas.map((item, i) => (
+                                            {Boolean(proformas.length) && proformas.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.proformaId} </td>
                                                     <td>{item.state.data.date}</td>
@@ -221,7 +250,7 @@ class BorrowerDashboard extends Component {
                                     <tr >  <th>Vendor</th><td>{this.org(currentObj.state.data.seller)}</td></tr>
 
                                     <tr >  <th>Takaful</th>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
-                                    <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
+                                    <tr >  <td></td><td><button className='btn-murhaba' onClick={() => this.handleRedeem(currentObj.state.data.internalReference)} >Redeem</button></td></tr>
 
 
 

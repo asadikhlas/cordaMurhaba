@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
 import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
-import applications from '../MurabahaApplicationState.json'
+//import applications from '../MurabahaApplicationState.json'
 import murabahaAgreement from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
@@ -24,6 +24,20 @@ class BankDashboard extends Component {
         isMurabahaModal:false,
         term:"",
         peers:"",
+        applications: []
+    }
+
+    componentDidMount(){
+
+        const APIURL = "http://localhost:10052/api/murabaha/my-applications"
+        axios.get(`${APIURL}`).then(res => {
+            this.setState({applications:res.data})
+            console.log("RESPONSE FROM MY PROFORMAS API",res)
+        }).catch(err => {
+            console.log(err.message)
+        })
+        
+    
     }
 
     handleChange = (event) => {
@@ -41,16 +55,17 @@ class BankDashboard extends Component {
         const parsed = queryString.parse(window.location.search);
 
               parsed.murabahaId=referenceId;
+              
      
-       const API="http://localhost:10050/api/murabaha/goods-transfer"
+       const API="http://localhost:10052/api/murabaha/murabaha-offer"
        
        const stringified = queryString.stringify(parsed);
-       console.log("API",API+"?"+stringified);
-   //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
-   //         console.log(response)
-   //     }).catch(err => {
-   //         console.log(err)
-   //     })
+       const APIURL = "http://localhost:10052/api/murabaha/murabaha-offer"
+       axios.get(`${APIURL}?${stringified}`).then(res => {
+           console.log("RESPONSE FROM ISSUE PERFORMA",res)
+       }).catch(err => {
+           console.log(err.message)
+       })
     }
     isRecordedTrue = () => this.setState({ isRecordedTrue: true })
 
@@ -65,14 +80,14 @@ class BankDashboard extends Component {
     }
 
      handlePurchaseOrder = (referenceId) => {
-        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term } = this.state
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, } = this.state
 
         console.log("Application ID", referenceId)
         
         const parsed = queryString.parse(window.location.search);
 
        
-        parsed.applicationId=referenceId;
+        parsed.murabahaId=referenceId;
         parsed.term=term;
 
         
@@ -91,7 +106,7 @@ class BankDashboard extends Component {
  }
 
     render() {
-        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term } = this.state
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, applications} = this.state
         console.log("CURRENT OBJ", currentObj)
         return (
             <React.Fragment>
