@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
 import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
-import applications from '../MurabahaApplicationState.json'
+//import applications from '../MurabahaApplicationState.json'
 import murabahaAgreement from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
@@ -24,6 +24,20 @@ class BankDashboard extends Component {
         isMurabahaModal:false,
         term:"",
         peers:"",
+        applications: []
+    }
+
+    componentDidMount(){
+
+        const APIURL = "http://localhost:10052/api/murabaha/my-applications"
+        axios.get(`${APIURL}`).then(res => {
+            this.setState({applications:res.data})
+            console.log("RESPONSE FROM MY PROFORMAS API",res)
+        }).catch(err => {
+            console.log(err.message)
+        })
+        
+    
     }
 
     handleChange = (event) => {
@@ -66,7 +80,7 @@ class BankDashboard extends Component {
     }
 
      handlePurchaseOrder = (referenceId) => {
-        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term } = this.state
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, } = this.state
 
         console.log("Application ID", referenceId)
         
@@ -92,7 +106,7 @@ class BankDashboard extends Component {
  }
 
     render() {
-        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term } = this.state
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, applications} = this.state
         console.log("CURRENT OBJ", currentObj)
         return (
             <React.Fragment>

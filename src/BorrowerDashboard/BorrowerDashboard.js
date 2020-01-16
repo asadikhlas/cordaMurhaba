@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
 import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
-import proformas from '../performaResponse.json'
+//import proformas from '../performaResponse.json'
 import murabahaAgreement from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
@@ -23,6 +23,7 @@ class BorrowerDashboard extends Component {
         isMurabahaModal: false,
         term:"",
         peers:"",
+        proformas: []
     }
 
     handleChange = (event) => {
@@ -46,6 +47,18 @@ class BorrowerDashboard extends Component {
         var i2 = party.indexOf(",");
         var o = party.slice(i + 2, i2);
         return o;
+    }
+    componentDidMount(){
+
+        const APIURL = "http://localhost:10051/api/murabaha/my-proformas"
+        axios.get(`${APIURL}`).then(res => {
+            this.setState({proformas:res.data})
+            console.log("RESPONSE FROM MY PROFORMAS API",res)
+        }).catch(err => {
+            console.log(err.message)
+        })
+        
+    
     }
 
     handleRedeem = (referenceId) => {// for GOODS TO REDEEM
@@ -96,7 +109,7 @@ class BorrowerDashboard extends Component {
     // }
 
     render() {
-        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers } = this.state
+        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers,proformas } = this.state
         console.log("STATE IN BORROWER DASHBOARD",this.state)
         console.log("PURCHASE ORDER DATA", purchaseOrder)
         return (
@@ -119,7 +132,7 @@ class BorrowerDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {proformas && proformas.map((item, i) => (
+                                            {Boolean(proformas.length) && proformas.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.proformaId} </td>
                                                     <td>{item.state.data.date}</td>

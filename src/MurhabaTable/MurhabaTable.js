@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './MurhabaTable.css';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
-import GoodsResponse from '../response.json';
+//import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
 import purchaseOrderPerforma from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
@@ -16,7 +16,21 @@ class MurhabaTable extends Component {
         isModalOpen: false,
         currentObj: {},
         isRecordedTrue: false,
-        isPurchaseModalOpen: false
+        isPurchaseModalOpen: false,
+        GoodsResponse: []
+    }
+
+    componentDidMount(){
+
+        const APIURL = "http://localhost:10050/api/murabaha/my-goods"
+        axios.get(`${APIURL}`).then(res => {
+            this.setState({GoodsResponse:res.data})
+            console.log("RESPONSE FROM MY GOODS API",res)
+        }).catch(err => {
+            console.log(err.message)
+        })
+        
+    
     }
 
     callback = (key) => {
@@ -34,24 +48,6 @@ class MurhabaTable extends Component {
         var o = party.slice(i + 2, i2);
         return o;
     }
-    
-    handleRedeem = (referenceId) => {// for GOODS TO REDEEM
-        console.log("GOODSID", referenceId)
-
-        const parsed = queryString.parse(window.location.search);
-
-              parsed.goodsId=referenceId;
-     
-       
-       const stringified = queryString.stringify(parsed);
-       const APIURL = "http://localhost:10051/api/murabaha/redeem"
-       axios.get(`${APIURL}?${stringified}`).then(res => {
-           console.log("RESPONSE FROM REDEEM",res)
-       }).catch(err => {
-           console.log(err.message)
-       })
-    }
-
     handleAccept = (referenceId) => {// for accepting the Purchase Order and transfer goods
          console.log("PURCHASE ORDER REFERENCE ID", referenceId)
 
@@ -75,46 +71,49 @@ class MurhabaTable extends Component {
      }
 
     render() {
-        const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
+        const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen, GoodsResponse } = this.state
         return (
             <React.Fragment>
                 <Header />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
+                      {Boolean(GoodsResponse.length) && 
                         <TabPane tab="Goods" key="1">
-                            <div>
-                                <h2><b>Goods</b></h2>
-                                <div className="flexer">
-                                    <table className="rwd-table">
-                                        <thead  >
-                                            <tr >
-                                                <td>Asset</td>
-                                                <td>Owner</td>
-                                                <td>Vendor</td>
-                                                <td>Reference</td>
+                        <div>
+                            <h2><b>Goods</b></h2>
+                            <div className="flexer">
+                                <table className="rwd-table">
+                                    <thead  >
+                                        <tr >
+                                            <td>Asset</td>
+                                            <td>Owner</td>
+                                            <td>Vendor</td>
+                                            <td>Reference</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {Boolean(GoodsResponse.length) && GoodsResponse.map((item, i) => (
+                                            <tr>
+                                                <td>{item.state.data.asset} </td>
+                                                <td>{this.org(item.state.data.assetOwner)}</td>
+                                                <td>{this.org(item.state.data.seller)}</td>
+                                                <td>{item.state.data.internalReference}</td>
+                                                <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isModalOpen: true })} >View</button></td>
+
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            {Boolean(GoodsResponse.length) && GoodsResponse.map((item, i) => (
-                                                <tr>
-                                                    <td>{item.state.data.asset} </td>
-                                                    <td>{this.org(item.state.data.assetOwner)}</td>
-                                                    <td>{this.org(item.state.data.seller)}</td>
-                                                    <td>{item.state.data.internalReference}</td>
-                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isModalOpen: true })} >View</button></td>
+                                        ))}
 
-                                                </tr>
-                                            ))}
-
-                                        </tbody>
-                                    </table>
+                                    </tbody>
+                                </table>
 
 
 
-                                </div>
                             </div>
-                        </TabPane>
+                        </div>
+                    </TabPane>
+                      
+                      }
                         {Boolean(purchaseOrderPerforma.length) && <TabPane tab="Purchase Orders" key="2">
                             {Boolean(purchaseOrderPerforma.length) &&
                                 <div className="flexer" style={{ flexDirection: 'column' }}>
