@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './MurhabaTable.css';
+import './SellerDashboard.css';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
 //import GoodsResponse from '../response.json';
@@ -11,7 +11,7 @@ import axios from 'axios'
 import queryString from 'query-string'
 const { TabPane } = Tabs;
 
-class MurhabaTable extends Component {
+class SellerDashboard extends Component {
     state = {
         isModalOpen: false,
         currentObj: {},
@@ -74,7 +74,7 @@ class MurhabaTable extends Component {
         const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen, GoodsResponse } = this.state
         return (
             <React.Fragment>
-                <Header />
+                <Header user={'Seller Dashboard'} ownedVault={'/'} recordedVault={'/sellerRecordedVault'} isIssuePerforma />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
@@ -274,4 +274,4 @@ class MurhabaTable extends Component {
     }
 }
 
-export default MurhabaTable
+export default SellerDashboard

@@ -57,7 +57,7 @@ class BorrowerDashboard extends Component {
         console.log("CURRENT OBJECT", currentObj)
         return (
             <React.Fragment>
-                <Header />
+                <Header user={'Seller Dashboard'} ownedVault={'/'} recordedVault={'/sellerRecordedVault'} isIssuePerforma />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} Bank>Recorded Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>

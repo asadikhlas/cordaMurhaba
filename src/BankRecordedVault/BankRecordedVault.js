@@ -48,7 +48,7 @@ class BorrowerDashboard extends Component {
         const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen } = this.state
         return (
             <React.Fragment>
-                <Header />
+                <Header user={'Bank Dashboard'} ownedVault={'/bankDashboard'} recordedVault={'/bankDashboard/RecordedVault'} />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} Bank>Recorded Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
