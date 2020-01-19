@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
-import GoodsResponse from '../response.json';
+//import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
 //import applications from '../MurabahaApplicationState.json'
 import murabahaAgreement from '../Murabaha.json'
@@ -24,6 +24,7 @@ class BankDashboard extends Component {
         isMurabahaModal:false,
         term:"",
         peers:"",
+        GoodsResponse: [],
         applications: []
     }
 
@@ -37,6 +38,14 @@ class BankDashboard extends Component {
             console.log(err.message)
         })
         
+        const goodsAPI = "http://localhost:10051/api/murabaha/my-goods"
+        axios.get(`${goodsAPI}`).then(res => {
+            this.setState({GoodsResponse:res.data})
+            console.log("RESPONSE FROM MY GOODS API",res)
+        }).catch(err => {
+            console.log(err.message)
+       
+        })
     
     }
 
@@ -106,7 +115,7 @@ class BankDashboard extends Component {
  }
 
     render() {
-        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, applications} = this.state
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, applications,GoodsResponse} = this.state
         console.log("CURRENT OBJ", currentObj)
         return (
             <React.Fragment>

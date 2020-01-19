@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
-import GoodsResponse from '../response.json';
+//import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
-//import proformas from '../performaResponse.json'
+import proformas from '../performaResponse.json'
 import murabahaAgreement from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
@@ -23,7 +23,8 @@ class BorrowerDashboard extends Component {
         isMurabahaModal: false,
         term:"",
         peers:"",
-        proformas: []
+        proformas: [],
+        GoodsResponse:[]
     }
 
     handleChange = (event) => {
@@ -50,12 +51,20 @@ class BorrowerDashboard extends Component {
     }
     componentDidMount(){
 
-        const APIURL = "http://localhost:10051/api/murabaha/my-proformas"
-        axios.get(`${APIURL}`).then(res => {
+        const proformaAPI = "http://localhost:10051/api/murabaha/my-proformas"
+        axios.get(`${proformaAPI}`).then(res => {
             this.setState({proformas:res.data})
             console.log("RESPONSE FROM MY PROFORMAS API",res)
         }).catch(err => {
             console.log(err.message)
+        })
+            const goodsAPI = "http://localhost:10051/api/murabaha/my-goods"
+        axios.get(`${goodsAPI}`).then(res => {
+            this.setState({GoodsResponse:res.data})
+            console.log("RESPONSE FROM MY GOODS API",res)
+        }).catch(err => {
+            console.log(err.message)
+       
         })
         
     
@@ -109,7 +118,7 @@ class BorrowerDashboard extends Component {
     // }
 
     render() {
-        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers,proformas } = this.state
+        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers,proformas,GoodsResponse } = this.state
         console.log("STATE IN BORROWER DASHBOARD",this.state)
         console.log("PURCHASE ORDER DATA", purchaseOrder)
         return (
@@ -118,7 +127,7 @@ class BorrowerDashboard extends Component {
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
-                        <TabPane tab="Proformas" key="1">
+                    {Boolean(proformas.length) &&  <TabPane tab="Proformas1" key="1">
                             <div>
                                 <h2><b>Proformas</b></h2>
                                 <div className="flexer">
@@ -150,7 +159,7 @@ class BorrowerDashboard extends Component {
 
                                 </div>
                             </div>
-                        </TabPane>
+                        </TabPane>}
                         {Boolean(GoodsResponse.length) && <TabPane tab="Goods" key="2">
                             {Boolean(GoodsResponse.length) &&
                                 <div className="flexer" style={{ flexDirection: 'column' }}>
