@@ -60,7 +60,7 @@ class IssuePerforma extends Component {
 
         return (
             <div>
-                <Header />
+                <Header user={'Seller Dashboard'} ownedVault={'/'} recordedVault={'/sellerRecordedVault'} isIssuePerforma />
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <div className="login flexer" style={{ flexDirection: 'column' }} >

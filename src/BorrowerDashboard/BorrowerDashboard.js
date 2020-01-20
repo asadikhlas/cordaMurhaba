@@ -123,7 +123,7 @@ class BorrowerDashboard extends Component {
         console.log("PURCHASE ORDER DATA", purchaseOrder)
         return (
             <React.Fragment>
-                <Header />
+                <Header user={'Borrower Dashboard'} ownedVault={'/borrowerDashboard'} recordedVault={'/borrowerDashboard/RecordedVault'} />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>

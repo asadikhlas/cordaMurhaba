@@ -89,7 +89,7 @@ class BankDashboard extends Component {
     }
 
      handlePurchaseOrder = (referenceId) => {
-        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, } = this.state
+        const { term } = this.state
 
         console.log("Application ID", referenceId)
         
@@ -119,7 +119,7 @@ class BankDashboard extends Component {
         console.log("CURRENT OBJ", currentObj)
         return (
             <React.Fragment>
-                <Header />
+                <Header user={'Bank Dashboard'} ownedVault={'/bankDashboard'} recordedVault={'/bankDashboard/RecordedVault'} />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>

@@ -5,7 +5,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import MurhabaTable from './MurhabaTable/MurhabaTable'
+import SellerDashboard from './SellerDashboard/SellerDashboard'
 import IssuePerforma from './IssuePerforma/IssuePerforma'
 import TermSheet from './termSheet/termSheet'
 import SellerRecordedVault from './SellerRecordedVault/SellerRecordedVault';
@@ -21,15 +21,15 @@ class Routes extends Component {
       <Router>
         <div>
           <Switch>
-            <Route exact path="/" component={MurhabaTable} />
+            <Route exact path="/" component={SellerDashboard} />
+            <Route exact path="/sellerRecordedVault" component={SellerRecordedVault} />
             <Route exact path="/performa" component={IssuePerforma} />
             <Route exact path="/termSheet" component={TermSheet} />
 
-            <Route exact path="/sellerRecordedVault" component={SellerRecordedVault} />
             <Route exact path="/borrowerDashboard" component={BorrowerDashboard} />
+            <Route exact path="/borrowerDashboard/RecordedVault" component={BorrowerRecordedVault} />
             <Route exact path="/bankDashboard" component={BankDashboard} />
-            <Route exact path="/bankRecordedVault" component={BankRecordedVault} />
-            <Route exact path="/borrowerRecordedVault" component={BorrowerRecordedVault} />
+            <Route exact path="/bankDashboard/RecordedVault" component={BankRecordedVault} />
 
           </Switch>
         </div>
