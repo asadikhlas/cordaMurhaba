@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 //import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
 import proformas from '../performaResponse.json'
-import murabahaAgreement from '../Murabaha.json'
+//import murabahaAgreement from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
 import Header from '../Header/Header';
@@ -66,6 +66,15 @@ class BorrowerDashboard extends Component {
             console.log(err.message)
        
         })
+
+        const MurabahaAPI = "http://localhost:10052/api/murabaha/murabaha"
+        axios.get(`${MurabahaAPI}`).then(res => {
+            this.setState({murabahaAgreements:res.data})
+            console.log("RESPONSE FROM MY GOODS API",res)
+        }).catch(err => {
+            console.log(err.message)
+       
+        })
         
     
     }
@@ -118,7 +127,7 @@ class BorrowerDashboard extends Component {
     // }
 
     render() {
-        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers,proformas,GoodsResponse } = this.state
+        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers,proformas,GoodsResponse, murabahaAgreements } = this.state
         console.log("STATE IN BORROWER DASHBOARD",this.state)
         console.log("PURCHASE ORDER DATA", purchaseOrder)
         return (
@@ -127,7 +136,7 @@ class BorrowerDashboard extends Component {
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
-                    {Boolean(proformas.length) &&  <TabPane tab="Proformas1" key="1">
+                    {Boolean(proformas.length) &&  <TabPane tab="Proformas" key="1">
                             <div>
                                 <h2><b>Proformas</b></h2>
                                 <div className="flexer">
@@ -194,7 +203,7 @@ class BorrowerDashboard extends Component {
                                 </div>
                             }
                         </TabPane>}
-                        <TabPane tab="Murabaha Agreements" key="3">
+                          <TabPane tab="Murabaha Agreements" key="3">
                             <div>
                                 <h2><b>Murabaha Agreements</b></h2>
                                 <div className="flexer">
@@ -208,7 +217,7 @@ class BorrowerDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {murabahaAgreement && murabahaAgreement.map((item, i) => (
+                                            {murabahaAgreements && murabahaAgreements.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.ageementDate} </td>
                                                     <td>{item.state.data.internalReference}</td>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 //import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
 //import applications from '../MurabahaApplicationState.json'
-import murabahaAgreement from '../Murabaha.json'
+//import murabahaAgreements from '../Murabaha.json'
 import purchaseOrder from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
 import Header from '../Header/Header';
@@ -25,12 +25,13 @@ class BankDashboard extends Component {
         term:"",
         peers:"",
         GoodsResponse: [],
-        applications: []
+        applications: [],
+        murabahaAgreements:[]
     }
 
     componentDidMount(){
 
-        const APIURL = "http://localhost:10052/api/murabaha/my-applications"
+        const APIURL = "http://localhost:10052/api/murabaha/applications"
         axios.get(`${APIURL}`).then(res => {
             this.setState({applications:res.data})
             console.log("RESPONSE FROM MY PROFORMAS API",res)
@@ -38,9 +39,18 @@ class BankDashboard extends Component {
             console.log(err.message)
         })
         
-        const goodsAPI = "http://localhost:10051/api/murabaha/my-goods"
+        const goodsAPI = "http://localhost:10052/api/murabaha/my-goods"
         axios.get(`${goodsAPI}`).then(res => {
             this.setState({GoodsResponse:res.data})
+            console.log("RESPONSE FROM MY GOODS API",res)
+        }).catch(err => {
+            console.log(err.message)
+       
+        })
+
+        const MurabahaAPI = "http://localhost:10052/api/murabaha/murabaha"
+        axios.get(`${MurabahaAPI}`).then(res => {
+            this.setState({murabahaAgreements:res.data})
             console.log("RESPONSE FROM MY GOODS API",res)
         }).catch(err => {
             console.log(err.message)
@@ -96,7 +106,7 @@ class BankDashboard extends Component {
         const parsed = queryString.parse(window.location.search);
 
        
-        parsed.murabahaId=referenceId;
+        parsed.applicationId=referenceId;
         parsed.term=term;
 
         
@@ -115,7 +125,7 @@ class BankDashboard extends Component {
  }
 
     render() {
-        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, applications,GoodsResponse} = this.state
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, applications,GoodsResponse,murabahaAgreements} = this.state
         console.log("CURRENT OBJ", currentObj)
         return (
             <React.Fragment>
@@ -209,7 +219,7 @@ class BankDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {murabahaAgreement && murabahaAgreement.map((item, i) => (
+                                            {murabahaAgreements && murabahaAgreements.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.ageementDate} </td>
                                                     <td>{item.state.data.internalReference}</td>

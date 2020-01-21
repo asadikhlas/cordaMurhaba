@@ -4,7 +4,7 @@ import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
 //import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
-import purchaseOrderPerforma from '../purchaseOrderPerforma.json'
+//import purchaseOrders from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
 import Header from '../Header/Header';
 import axios from 'axios'
@@ -17,19 +17,27 @@ class SellerDashboard extends Component {
         currentObj: {},
         isRecordedTrue: false,
         isPurchaseModalOpen: false,
-        GoodsResponse: []
+        GoodsResponse: [],
+        purchaseOrders:[]
     }
 
     componentDidMount(){
 
-        const APIURL = "http://localhost:10050/api/murabaha/my-goods"
-        axios.get(`${APIURL}`).then(res => {
+        const APIGOODS = "http://localhost:10050/api/murabaha/my-goods"
+        axios.get(`${APIGOODS}`).then(res => {
             this.setState({GoodsResponse:res.data})
             console.log("RESPONSE FROM MY GOODS API",res)
         }).catch(err => {
             console.log(err.message)
         })
-        
+        //purchase orders get api
+        const APIPURCHASEORDERS = "http://localhost:10050/api/murabaha/purchaseorder"
+        axios.get(`${APIPURCHASEORDERS}`).then(res => {
+            this.setState({purchaseOrders:res.data})
+            console.log("RESPONSE FROM MY GOODS API",res)
+        }).catch(err => {
+            console.log(err.message)
+        })
     
     }
 
@@ -71,7 +79,7 @@ class SellerDashboard extends Component {
      }
 
     render() {
-        const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen, GoodsResponse } = this.state
+        const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen, GoodsResponse,purchaseOrders } = this.state
         return (
             <React.Fragment>
                 <Header user={'Seller Dashboard'} ownedVault={'/'} recordedVault={'/sellerRecordedVault'} isIssuePerforma />
@@ -114,8 +122,8 @@ class SellerDashboard extends Component {
                     </TabPane>
                       
                       }
-                        {Boolean(purchaseOrderPerforma.length) && <TabPane tab="Purchase Orders" key="2">
-                            {Boolean(purchaseOrderPerforma.length) &&
+                        {Boolean(purchaseOrders.length) && <TabPane tab="Purchase Orders" key="2">
+                            {Boolean(purchaseOrders.length) &&
                                 <div className="flexer" style={{ flexDirection: 'column' }}>
                                     <h2><b>Purchase Orders</b></h2>
                                     <table className="rwd-table">
@@ -129,7 +137,7 @@ class SellerDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Boolean(purchaseOrderPerforma.length) && purchaseOrderPerforma.map((item, i) => (
+                                            {Boolean(purchaseOrders.length) && purchaseOrders.map((item, i) => (
 
                                                 <tr>
                                                     <td>{item.state.data.date} </td>
