@@ -56,7 +56,7 @@ class termSheet extends Component {
         const { limit, rate, tenor,peers , referenceId } = this.state 
         return (
             <div>
-            <Header />
+                <Header user={'Bank Dashboard'} ownedVault={'/bankDashboard'} recordedVault={'/bankDashboard/RecordedVault'} isTermSheet />
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <div className="login flexer" style={{ flexDirection: 'column' }} >

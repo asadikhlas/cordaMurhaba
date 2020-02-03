@@ -67,7 +67,8 @@ class SellerDashboard extends Component {
         const stringified = queryString.stringify(parsed);
         const APIURL = "http://localhost:10050/api/murabaha/goods-transfer"
         axios.get(`${APIURL}?${stringified}`).then(res => {
-            console.log("RESPONSE FROM ISSUE PERFORMA",res)
+            console.log("RESPONSE FROM ACCEPT PO",res)
+            alert(res.data);
         }).catch(err => {
             console.log(err.message)
         })
@@ -187,7 +188,7 @@ class SellerDashboard extends Component {
                                             <tr >   <th>Asset</th> <td>{currentObj.state.data.description}</td></tr>
                                             <tr >  <th>Bank</th><td>{this.org(currentObj.state.data.bank)}</td></tr>
                                             <tr >  <th>Client</th><td>{this.org(currentObj.state.data.client)}</td></tr>
-                                            <tr >  <th>Proforma</th><td>{currentObj.state.data.proformaId}</td></tr>
+                                            <tr >  <th>Proforma</th><td>{currentObj.state.data.proforma.proformaId}</td></tr>
 
                                             <tr >  <td></td><td><button className='btn-murhaba' onClick={() => this.handleAccept(currentObj.state.data.referenceId)}  >Accept PO</button></td></tr>
                                         

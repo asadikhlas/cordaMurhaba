@@ -21,42 +21,42 @@ class BankDashboard extends Component {
         currentObj: {},
         isRecordedTrue: false,
         isGoodsModal: false,
-        isMurabahaModal:false,
-        term:"",
-        peers:"",
+        isMurabahaModal: false,
+        term: "",
+        peers: "",
         GoodsResponse: [],
         applications: [],
-        murabahaAgreements:[]
+        murabahaAgreements: []
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
         const APIURL = "http://localhost:10052/api/murabaha/applications"
         axios.get(`${APIURL}`).then(res => {
-            this.setState({applications:res.data})
-            console.log("RESPONSE FROM MY PROFORMAS API",res)
+            this.setState({ applications: res.data })
+            console.log("RESPONSE FROM MY PROFORMAS API", res)
         }).catch(err => {
             console.log(err.message)
-        })
-        
-        const goodsAPI = "http://localhost:10052/api/murabaha/my-goods"
-        axios.get(`${goodsAPI}`).then(res => {
-            this.setState({GoodsResponse:res.data})
-            console.log("RESPONSE FROM MY GOODS API",res)
-        }).catch(err => {
-            console.log(err.message)
-       
         })
 
-        const MurabahaAPI = "http://localhost:10052/api/murabaha/murabaha"
-        axios.get(`${MurabahaAPI}`).then(res => {
-            this.setState({murabahaAgreements:res.data})
-            console.log("RESPONSE FROM MY GOODS API",res)
+        const goodsAPI = "http://localhost:10052/api/murabaha/my-goods"
+        axios.get(`${goodsAPI}`).then(res => {
+            this.setState({ GoodsResponse: res.data })
+            console.log("RESPONSE FROM MY GOODS API", res)
         }).catch(err => {
             console.log(err.message)
-       
+
         })
-    
+
+        const MurabahaAPI = "http://localhost:10052/api/murabaha/unsigned-murabaha"
+        axios.get(`${MurabahaAPI}`).then(res => {
+            this.setState({ murabahaAgreements: res.data })
+            console.log("RESPONSE FROM Unsigned Murabaha API", res)
+        }).catch(err => {
+            console.log(err.message)
+
+        })
+
     }
 
     handleChange = (event) => {
@@ -73,18 +73,19 @@ class BankDashboard extends Component {
 
         const parsed = queryString.parse(window.location.search);
 
-              parsed.murabahaId=referenceId;
-              
-     
-       const API="http://localhost:10052/api/murabaha/murabaha-offer"
-       
-       const stringified = queryString.stringify(parsed);
-       const APIURL = "http://localhost:10052/api/murabaha/murabaha-offer"
-       axios.get(`${APIURL}?${stringified}`).then(res => {
-           console.log("RESPONSE FROM ISSUE PERFORMA",res)
-       }).catch(err => {
-           console.log(err.message)
-       })
+        parsed.murabahaId = referenceId;
+
+
+        const API = "http://localhost:10052/api/murabaha/murabaha-offer"
+
+        const stringified = queryString.stringify(parsed);
+        const APIURL = "http://localhost:10052/api/murabaha/murabaha-offer"
+        axios.get(`${APIURL}?${stringified}`).then(res => {
+            console.log("RESPONSE FROM MURABAHA OFFER", res)
+            alert(res.data);
+        }).catch(err => {
+            console.log(err.message)
+        })
     }
     isRecordedTrue = () => this.setState({ isRecordedTrue: true })
 
@@ -98,51 +99,52 @@ class BankDashboard extends Component {
         return o;
     }
 
-     handlePurchaseOrder = (referenceId) => {
+    handlePurchaseOrder = (referenceId) => {
         const { term } = this.state
 
         console.log("Application ID", referenceId)
-        
+
         const parsed = queryString.parse(window.location.search);
 
-       
-        parsed.applicationId=referenceId;
-        parsed.term=term;
 
-        
+        parsed.applicationId = referenceId;
+        parsed.term = term;
+
+
         const stringified = queryString.stringify(parsed);
         const APIURL = "http://localhost:10052/api/murabaha/issue-purchaseorder"
         axios.get(`${APIURL}?${stringified}`).then(res => {
-            console.log("RESPONSE FROM ISSUE PERFORMA",res)
+            console.log("RESPONSE FROM ISSUE PURCHASE ORDER", res)
+            alert(res.data);
         }).catch(err => {
             console.log(err.message)
         })
-    //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
-    //         console.log(response)
-    //     }).catch(err => {
-    //         console.log(err)
-    //     })
- }
+        //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
+        //         console.log(response)
+        //     }).catch(err => {
+        //         console.log(err)
+        //     })
+    }
 
     render() {
-        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal,term, applications,GoodsResponse,murabahaAgreements} = this.state
+        const { isApplicationModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, applications, GoodsResponse, murabahaAgreements } = this.state
         console.log("CURRENT OBJ", currentObj)
         return (
             <React.Fragment>
-                <Header user={'Bank Dashboard'} ownedVault={'/bankDashboard'} recordedVault={'/bankDashboard/RecordedVault'} />
+                <Header user={'Bank Dashboard'} ownedVault={'/bankDashboard'} recordedVault={'/bankDashboard/RecordedVault'} isTermSheet />
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
-                    {Boolean(applications.length) &&  <TabPane tab="applications" key="1">
+                        {Boolean(applications.length) && <TabPane tab="applications" key="1">
                             <div>
                                 <h2><b>Applications</b></h2>
                                 <div className="flexer">
                                     <table className="rwd-table">
                                         <thead  >
                                             <tr >
-                                            <td>Date</td>
+                                                <td>Date</td>
                                                 <td>Reference No.</td>
-                                                
+
                                                 <td>Applicant</td>
                                                 <td>Amount</td>
                                                 <td>Tenor</td>
@@ -176,7 +178,7 @@ class BankDashboard extends Component {
                                     <h2><b>Goods</b></h2>
                                     <table className="rwd-table">
                                         <thead  >
-                                        <tr >
+                                            <tr >
                                                 <td>Reference</td>
                                                 <td>Asset</td>
                                                 <td>Quantity</td>
@@ -186,12 +188,12 @@ class BankDashboard extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {Boolean(GoodsResponse.length) && GoodsResponse.map((item, i) => (
+                                            {Boolean(GoodsResponse.length) && GoodsResponse.map((item, i) => (
                                                 <tr>
                                                     <td>{item.state.data.internalReference}</td>
                                                     <td>{item.state.data.asset} </td>
                                                     <td>{item.state.data.quantity}</td>
-                                                    
+
                                                     <td>{this.org(item.state.data.seller)}</td>
 
                                                     <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isGoodsModal: true })} >View</button></td>
@@ -205,39 +207,42 @@ class BankDashboard extends Component {
                                 </div>
                             }
                         </TabPane>}
-                        <TabPane tab="Murabaha Agreements" key="3">
-                            <div>
-                                <h2><b>Murabaha Agreements</b></h2>
-                                <div className="flexer">
-                                    <table className="rwd-table">
-                                        <thead  >
-                                            <tr >
-                                                <td>Date</td>
-                                                <td>Reference No.</td>
-                                                <td>Borrower</td>
-                                                <td>Term</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {murabahaAgreements && murabahaAgreements.map((item, i) => (
-                                                <tr>
-                                                    <td>{item.state.data.ageementDate} </td>
-                                                    <td>{item.state.data.internalReference}</td>
-                                                    <td>{this.org(item.state.data.borrower)}</td>
-                                                    <td>{item.state.data.term}</td>
-                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isMurabahaModal: true })} >View</button></td>
-
+                        {Boolean(murabahaAgreements.length) &&
+                            <TabPane tab="Murabaha Agreements" key="3">
+                                <div>
+                                    <h2><b>Murabaha Agreements</b></h2>
+                                    <div className="flexer">
+                                        <table className="rwd-table">
+                                            <thead  >
+                                                <tr >
+                                                    <td>Date</td>
+                                                    <td>Reference No.</td>
+                                                    <td>Borrower</td>
+                                                    <td>Term</td>
                                                 </tr>
-                                            ))}
+                                            </thead>
+                                            <tbody>
+                                                {murabahaAgreements && murabahaAgreements.map((item, i) => (
+                                                    <tr>
+                                                        <td>{item.state.data.ageementDate} </td>
+                                                        <td>{item.state.data.internalReference}</td>
+                                                        <td>{this.org(item.state.data.borrower)}</td>
+                                                        <td>{item.state.data.term}</td>
+                                                        <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isMurabahaModal: true })} >View</button></td>
 
-                                        </tbody>
-                                    </table>
+                                                    </tr>
+                                                ))}
+
+                                            </tbody>
+                                        </table>
 
 
 
+                                    </div>
                                 </div>
-                            </div>
-                        </TabPane>
+                            </TabPane>
+                        }
+
                     </Tabs>
                 </div>
 
@@ -264,23 +269,23 @@ class BankDashboard extends Component {
                         <Modal.Body>
                             <div className="flexer">
                                 <table className="rwd-table">
-                                <tr> <th> Reference</th><td>{currentObj.state.data.internalReference}</td></tr>
-                                <tr ><th>Asset</th><td>{currentObj.state.data.asset} </td></tr>
-                                            <tr >   <th>Quantity</th> <td>{currentObj.state.data.quantity}</td></tr>
-                                            <tr >  <th>Vendor</th><td>{this.org(currentObj.state.data.seller)}</td></tr>
-                                           
-                                            <tr >  <th>Takaful</th>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
-                                            <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
-                                        
-                                        
-                             
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                          
+                                    <tr> <th> Reference</th><td>{currentObj.state.data.internalReference}</td></tr>
+                                    <tr ><th>Asset</th><td>{currentObj.state.data.asset} </td></tr>
+                                    <tr >   <th>Quantity</th> <td>{currentObj.state.data.quantity}</td></tr>
+                                    <tr >  <th>Vendor</th><td>{this.org(currentObj.state.data.seller)}</td></tr>
+
+                                    <tr >  <th>Takaful</th>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
+                                    <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
+
+
+
+
+
+
+
+
+
+
 
 
                                 </table>
@@ -318,9 +323,9 @@ class BankDashboard extends Component {
                                     <tr><th>Amount</th><td>{currentObj.state.data.amount} </td></tr>
                                     <tr><th>Tenor</th><td>{currentObj.state.data.tenor} </td></tr>
 
-                                    <tr><td><input name="term" className="goods-amount" placeholder="Term"  value={term} onChange={this.handleChange} type="number" /></td>                                        <td>
-                                            <button className='btn-murhaba' onClick={() => this.handlePurchaseOrder(currentObj.state.data.referenceId)} >Issue Purchase Order</button>
-                                        </td>
+                                    <tr><td><input name="term" className="goods-amount" placeholder="Term" value={term} onChange={this.handleChange} type="number" /></td>                                        <td>
+                                        <button className='btn-murhaba' onClick={() => this.handlePurchaseOrder(currentObj.state.data.referenceId)} >Issue Purchase Order</button>
+                                    </td>
                                     </tr>
                                     {/* <thead  >
                                         <tr >
@@ -349,7 +354,7 @@ class BankDashboard extends Component {
                     </Modal>
 
                 }
-                 {
+                {
                     isMurabahaModal &&
                     <Modal
                         size="lg"
@@ -376,8 +381,10 @@ class BankDashboard extends Component {
                                     <tr><th>CostPrice</th><td>{currentObj.state.data.costPrice} </td></tr>
                                     <tr><th>Selling Price</th><td>{currentObj.state.data.sellingprice} </td></tr>
                                     <tr><th>Term</th><td>{currentObj.state.data.term} </td></tr>
-                                    <tr >  <td></td><td><button className='btn-murhaba'onClick={() => this.handleOffer(currentObj.state.data.internalReference)} >Offer</button></td></tr>
-                                    
+                                    <tr><th>Borrower Signature:</th>{currentObj.state.data.borrowerSignature ? <td>Yes</td> : <td>No</td>}</tr>
+                                    <tr><th>Bank Signature</th>{currentObj.state.data.bankSignature ? <td>Yes</td> : <td>No</td>}</tr>
+                                    <tr >  <td></td><td><button className='btn-murhaba' onClick={() => this.handleOffer(currentObj.state.data.internalReference)} >Offer</button></td></tr>
+
                                     {/* <thead  >
                                         <tr >
                                             <td>Assets</td>

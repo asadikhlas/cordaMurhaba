@@ -21,10 +21,10 @@ class BorrowerDashboard extends Component {
         isRecordedTrue: false,
         isGoodsModal: false,
         isMurabahaModal: false,
-        term:"",
-        peers:"",
+        term: "",
+        peers: "",
         proformas: [],
-        GoodsResponse:[]
+        GoodsResponse: []
     }
 
     handleChange = (event) => {
@@ -49,34 +49,34 @@ class BorrowerDashboard extends Component {
         var o = party.slice(i + 2, i2);
         return o;
     }
-    componentDidMount(){
+    componentDidMount() {
 
         const proformaAPI = "http://localhost:10051/api/murabaha/my-proformas"
         axios.get(`${proformaAPI}`).then(res => {
-            this.setState({proformas:res.data})
-            console.log("RESPONSE FROM MY PROFORMAS API",res)
+            this.setState({ proformas: res.data })
+            console.log("RESPONSE FROM MY PROFORMAS API", res)
         }).catch(err => {
             console.log(err.message)
         })
-            const goodsAPI = "http://localhost:10051/api/murabaha/my-goods"
+        const goodsAPI = "http://localhost:10051/api/murabaha/my-goods"
         axios.get(`${goodsAPI}`).then(res => {
-            this.setState({GoodsResponse:res.data})
-            console.log("RESPONSE FROM MY GOODS API",res)
+            this.setState({ GoodsResponse: res.data })
+            console.log("RESPONSE FROM MY GOODS API", res)
         }).catch(err => {
             console.log(err.message)
-       
+
         })
 
-        const MurabahaAPI = "http://localhost:10052/api/murabaha/murabaha"
+        const MurabahaAPI = "http://localhost:10052/api/murabaha/unsigned-murabaha"
         axios.get(`${MurabahaAPI}`).then(res => {
-            this.setState({murabahaAgreements:res.data})
-            console.log("RESPONSE FROM MY GOODS API",res)
+            this.setState({ murabahaAgreements: res.data })
+            console.log("RESPONSE FROM MUnsigned Murabaha API", res)
         }).catch(err => {
             console.log(err.message)
-       
+
         })
-        
-    
+
+
     }
 
     handleRedeem = (referenceId) => {// for GOODS TO REDEEM
@@ -84,16 +84,17 @@ class BorrowerDashboard extends Component {
 
         const parsed = queryString.parse(window.location.search);
 
-              parsed.goodsId=referenceId;
-     
-       
-       const stringified = queryString.stringify(parsed);
-       const APIURL = "http://localhost:10051/api/murabaha/redeem"
-       axios.get(`${APIURL}?${stringified}`).then(res => {
-           console.log("RESPONSE FROM REDEEM",res)
-       }).catch(err => {
-           console.log(err.message)
-       })
+        parsed.goodsId = referenceId;
+
+
+        const stringified = queryString.stringify(parsed);
+        const APIURL = "http://localhost:10051/api/murabaha/redeem"
+        axios.get(`${APIURL}?${stringified}`).then(res => {
+            console.log("RESPONSE FROM REDEEM", res)
+            alert(res.data);
+        }).catch(err => {
+            console.log(err.message)
+        })
     }
     handleApplication = (referenceId) => {
         const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers } = this.state
@@ -102,23 +103,24 @@ class BorrowerDashboard extends Component {
 
         const parsed = queryString.parse(window.location.search);
 
-        parsed.bank=peers;
-        parsed.proforma=referenceId;
-        parsed.term=term;
-        
+        parsed.bank = peers;
+        parsed.proforma = referenceId;
+        parsed.term = term;
+
         const stringified = queryString.stringify(parsed);
         console.log(stringified)
 
         const APIURL = "http://localhost:10051/api/murabaha/murabaha-application"
         axios.get(`${APIURL}?${stringified}`).then(res => {
-            console.log("RESPONSE FROM ISSUE PERFORMA",res)
+            console.log("RESPONSE FROM ISSUE PERFORMA", res)
+            alert(res.data);
         }).catch(err => {
             console.log(err.message)
         })
 
 
 
-     }
+    }
     //     axios.get(`http://localhost:10050/api/murabaha/goods-transfer?purchaseOrderId=${referenceId}`).then(response => {
     //         console.log(response)
     //     }).catch(err => {
@@ -127,8 +129,8 @@ class BorrowerDashboard extends Component {
     // }
 
     render() {
-        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers,proformas,GoodsResponse, murabahaAgreements } = this.state
-        console.log("STATE IN BORROWER DASHBOARD",this.state)
+        const { isProformaModal, currentObj, isRecordedTrue, isGoodsModal, isMurabahaModal, term, peers, proformas, GoodsResponse, murabahaAgreements } = this.state
+        console.log("STATE IN BORROWER DASHBOARD", this.state)
         console.log("PURCHASE ORDER DATA", purchaseOrder)
         return (
             <React.Fragment>
@@ -136,7 +138,7 @@ class BorrowerDashboard extends Component {
                 <h2 className="mt-3" style={{ textAlign: 'center' }} >Owned Vault</h2>
                 <div>
                     <Tabs defaultActiveKey="1" onChange={this.callback}>
-                    {Boolean(proformas.length) &&  <TabPane tab="Proformas" key="1">
+                        {Boolean(proformas.length) && <TabPane tab="Proformas" key="1">
                             <div>
                                 <h2><b>Proformas</b></h2>
                                 <div className="flexer">
@@ -203,39 +205,42 @@ class BorrowerDashboard extends Component {
                                 </div>
                             }
                         </TabPane>}
-                          <TabPane tab="Murabaha Agreements" key="3">
-                            <div>
-                                <h2><b>Murabaha Agreements</b></h2>
-                                <div className="flexer">
-                                    <table className="rwd-table">
-                                        <thead  >
-                                            <tr >
-                                                <td>Date</td>
-                                                <td>Reference No.</td>
-                                                <td>Borrower</td>
-                                                <td>Term</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {murabahaAgreements && murabahaAgreements.map((item, i) => (
-                                                <tr>
-                                                    <td>{item.state.data.ageementDate} </td>
-                                                    <td>{item.state.data.internalReference}</td>
-                                                    <td>{this.org(item.state.data.borrower)}</td>
-                                                    <td>{item.state.data.term}</td>
-                                                    <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isMurabahaModal: true })} >View</button></td>
-
+                        {murabahaAgreements && Boolean(murabahaAgreements.length) &&
+                            <TabPane tab="Murabaha Agreements" key="3">
+                                <div>
+                                    <h2><b>Murabaha Agreements</b></h2>
+                                    <div className="flexer">
+                                        <table className="rwd-table">
+                                            <thead  >
+                                                <tr >
+                                                    <td>Date</td>
+                                                    <td>Reference No.</td>
+                                                    <td>Borrower</td>
+                                                    <td>Term</td>
                                                 </tr>
-                                            ))}
+                                            </thead>
+                                            <tbody>
+                                                {murabahaAgreements && murabahaAgreements.map((item, i) => (
+                                                    <tr>
+                                                        <td>{item.state.data.ageementDate} </td>
+                                                        <td>{item.state.data.internalReference}</td>
+                                                        <td>{this.org(item.state.data.borrower)}</td>
+                                                        <td>{item.state.data.term}</td>
+                                                        <td><button className='btn-murhaba' onClick={() => this.setState({ currentObj: item, isMurabahaModal: true })} >View</button></td>
 
-                                        </tbody>
-                                    </table>
+                                                    </tr>
+                                                ))}
+
+                                            </tbody>
+                                        </table>
 
 
 
+                                    </div>
                                 </div>
-                            </div>
-                        </TabPane>
+                            </TabPane>
+                        }
+
                     </Tabs>
                 </div>
 
@@ -323,7 +328,7 @@ class BorrowerDashboard extends Component {
                                         </select>
                                     </td>
                                         <td>
-                                            <button className='btn-murhaba'  onClick={() => this.handleApplication(currentObj.state.data.proformaId)} >Request Murabaha</button>
+                                            <button className='btn-murhaba' onClick={() => this.handleApplication(currentObj.state.data.proformaId)} >Request Murabaha</button>
                                         </td>
                                         {/* <td>
                                         </td> */}

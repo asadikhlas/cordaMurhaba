@@ -5,7 +5,7 @@ import Logo from '../Assets/IjmaLogo.png'
 
 class Header extends Component {
     render() {
-        const {user, recordedVault, isIssuePerforma, ownedVault} = this.props
+        const {user, recordedVault, isIssuePerforma, ownedVault, isTermSheet} = this.props
         return (
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div className="flexer" style={{ padding: '8px' }}>
@@ -17,6 +17,7 @@ class Header extends Component {
                     <a onClick={() => this.props.history.push(`${ownedVault}`)}> Owned Vault</a>
                     <a className="ml-3" onClick={() => this.props.history.push(`${recordedVault}`)} >Recorded Vault</a>
                     {isIssuePerforma &&  <a className="ml-3" onClick={() => this.props.history.push('/performa')}>Issue Performa</a>}
+                    {isTermSheet && <a className="ml-3" onClick={() => this.props.history.push('/bankDashboard/termSheet')}>Term Sheet</a>}
                 </div>
                 <span>{user}</span>
             </header>

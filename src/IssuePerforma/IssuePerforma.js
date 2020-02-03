@@ -36,8 +36,10 @@ class IssuePerforma extends Component {
         const APIURL = "http://localhost:10050/api/murabaha/create-proforma"
         axios.get(`${APIURL}?${stringified}`).then(res => {
             console.log("RESPONSE FROM ISSUE PERFORMA",res)
+            alert(res.data);
         }).catch(err => {
             console.log(err.message)
+            alert(err.message);
         })
 
     }

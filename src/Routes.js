@@ -24,7 +24,7 @@ class Routes extends Component {
             <Route exact path="/" component={SellerDashboard} />
             <Route exact path="/sellerRecordedVault" component={SellerRecordedVault} />
             <Route exact path="/performa" component={IssuePerforma} />
-            <Route exact path="/termSheet" component={TermSheet} />
+            <Route exact path="/bankDashboard/termSheet" component={TermSheet} />
 
             <Route exact path="/borrowerDashboard" component={BorrowerDashboard} />
             <Route exact path="/borrowerDashboard/RecordedVault" component={BorrowerRecordedVault} />
