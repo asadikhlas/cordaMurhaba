@@ -31,7 +31,7 @@ class BankDashboard extends Component {
 
     componentDidMount() {
 
-        const APIURL = "http://localhost:10052/api/murabaha/applications"
+        const APIURL = "http://localhost:10052/api/murabaha/applications"//TODO  change to unconsumed applications
         axios.get(`${APIURL}`).then(res => {
             this.setState({ applications: res.data })
             console.log("RESPONSE FROM MY PROFORMAS API", res)

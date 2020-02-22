@@ -33,6 +33,7 @@ class termSheet extends Component {
         const APIURL = "http://localhost:10052/api/murabaha/issue-TermSheet"
         axios.get(`${APIURL}?${stringified}`).then(res => {
             console.log("RESPONSE FROM Term SHEET",res.data)
+            alert(res.data);
         }).catch(err => {
             console.log(err.message)
         })
