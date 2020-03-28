@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './SellerDashboard.css';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom'
-//import GoodsResponse from '../response.json';
+import GoodsResponse from '../response.json';
 import { Modal } from 'react-bootstrap';
 //import purchaseOrders from '../purchaseOrderPerforma.json'
 import { Tabs } from 'antd';
@@ -17,7 +17,7 @@ class SellerDashboard extends Component {
         currentObj: {},
         isRecordedTrue: false,
         isPurchaseModalOpen: false,
-        GoodsResponse: [],
+    //    GoodsResponse: [],
         purchaseOrders:[]
     }
 
@@ -25,7 +25,7 @@ class SellerDashboard extends Component {
 
         const APIGOODS = "http://localhost:10050/api/murabaha/my-goods"
         axios.get(`${APIGOODS}`).then(res => {
-            this.setState({GoodsResponse:res.data})
+       //     this.setState({GoodsResponse:res.data})
             console.log("RESPONSE FROM MY GOODS API",res)
         }).catch(err => {
             console.log(err.message)
@@ -56,6 +56,25 @@ class SellerDashboard extends Component {
         var o = party.slice(i + 2, i2);
         return o;
     }
+    handleBurn = (referenceId) => {// for GOODS TO REDEEM
+       console.log("IN BURN FUNCTION")
+        console.log("GOODSID", referenceId)
+
+        const parsed = queryString.parse(window.location.search);
+
+        parsed.goodsId = referenceId;
+
+
+        const stringified = queryString.stringify(parsed);
+        const APIURL = "http://localhost:10050/api/murabaha/burn"
+        console.log(`${APIURL}?${stringified}`);
+        axios.get(`${APIURL}?${stringified}`).then(res => {
+            console.log("RESPONSE FROM BURN", res)
+            alert(res.data);
+        }).catch(err => {
+            console.log(err.message)
+        })
+    }
     handleAccept = (referenceId) => {// for accepting the Purchase Order and transfer goods
          console.log("PURCHASE ORDER REFERENCE ID", referenceId)
 
@@ -80,7 +99,7 @@ class SellerDashboard extends Component {
      }
 
     render() {
-        const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen, GoodsResponse,purchaseOrders } = this.state
+        const { isModalOpen, currentObj, isRecordedTrue, isPurchaseModalOpen, purchaseOrders } = this.state
         return (
             <React.Fragment>
                 <Header user={'Seller Dashboard'} ownedVault={'/'} recordedVault={'/sellerRecordedVault'} isIssuePerforma />
@@ -248,7 +267,7 @@ class SellerDashboard extends Component {
                                             <tr >  <th>Vendor</th><td>{this.org(currentObj.state.data.seller)}</td></tr>
                                            
                                             <tr >  <th>Takaful</th>{currentObj.state.data.takaful ? <td>Yes</td> : <td>No</td>}</tr>
-                                            <tr >  <td></td><td><button className='btn-murhaba' >Redeem</button></td></tr>
+                                            <tr >  <td></td><td><button className='btn-murhaba'onClick={() => this.handleBurn(currentObj.state.data.internalReference)} >Burn</button></td></tr>
                                         
                                     {/* <thead  >
                                         <tr >
